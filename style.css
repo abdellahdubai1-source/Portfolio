@@ -701,17 +701,21 @@ main [id] {
 }
 
 .hero__illustration-frame {
+  position: relative;
   margin: 0;
+  aspect-ratio: 640 / 760;
   border-radius: var(--radius-xl);
   overflow: hidden;
   border: 1px solid var(--color-border-dark);
-  box-shadow: var(--shadow-dark-lg);
+  box-shadow: var(--shadow-dark-lg), 0 0 70px rgba(108, 92, 231, 0.35), 0 0 30px rgba(54, 194, 255, 0.2);
   background: var(--color-ink-2);
 }
 
 .hero__illustration {
+  display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
 }
 
 .hero__floating-card {
@@ -860,13 +864,23 @@ main [id] {
   justify-self: center;
   width: 100%;
   max-width: 360px;
+  aspect-ratio: 480 / 560;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border);
 }
 
 .about__photo {
+  display: block;
   width: 100%;
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--color-border);
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.about__media:hover .about__photo {
+  transform: scale(1.06);
 }
 
 .about__intro {
