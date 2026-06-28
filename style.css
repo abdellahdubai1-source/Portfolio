@@ -401,6 +401,23 @@ main [id] {
   width: 100%;
 }
 
+.btn--whatsapp {
+  margin-top: var(--space-6);
+  background: linear-gradient(135deg, #1fae6b 0%, var(--color-whatsapp) 100%);
+  color: #ffffff;
+  box-shadow: 0 14px 36px rgba(37, 211, 102, 0.35);
+}
+
+.btn--whatsapp svg {
+  width: 18px;
+  height: 18px;
+}
+
+.btn--whatsapp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 44px rgba(37, 211, 102, 0.45);
+}
+
 
 /* =====================================================================
    5. STICKY HEADER / NAVIGATION (glassmorphism)
@@ -617,12 +634,19 @@ main [id] {
    ===================================================================== */
 .hero {
   position: relative;
-  padding-top: calc(var(--space-12) + var(--header-h));
-  padding-bottom: var(--space-16);
+  padding-top: calc(var(--space-9) + var(--header-h));
+  padding-bottom: var(--space-10);
   background: var(--gradient-hero);
   background-color: var(--color-ink-3);
   color: var(--color-text-on-dark);
   overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    padding-top: calc(var(--space-12) + var(--header-h));
+    padding-bottom: var(--space-16);
+  }
 }
 
 /* Subtle Linear-style dot grid, pure CSS, no images */
@@ -890,29 +914,6 @@ main [id] {
   line-height: var(--lh-relaxed);
 }
 
-.about__details {
-  display: grid;
-  gap: var(--space-5);
-  margin-top: var(--space-8);
-}
-
-.about__detail {
-  padding: var(--space-5);
-  border-left: 2px solid var(--color-accent);
-  background: var(--color-paper-alt);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-}
-
-.about__detail-title {
-  font-size: var(--fs-base);
-}
-
-.about__detail-text {
-  margin-top: var(--space-2);
-  font-size: var(--fs-sm);
-  color: var(--color-text-muted);
-}
-
 .skills {
   display: flex;
   flex-wrap: wrap;
@@ -936,10 +937,6 @@ main [id] {
 
   .about__media {
     justify-self: start;
-  }
-
-  .about__details {
-    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -1131,12 +1128,6 @@ main [id] {
   color: var(--color-success);
 }
 
-.status-badge--soon {
-  background: rgba(255, 255, 255, 0.85);
-  color: var(--color-text-muted);
-  border: 1px solid var(--color-border);
-}
-
 
 /* =====================================================================
    11. PORTFOLIO GRID
@@ -1186,12 +1177,6 @@ main [id] {
   transform: scale(1.05);
 }
 
-.portfolio-card__media .status-badge {
-  position: absolute;
-  top: var(--space-3);
-  right: var(--space-3);
-}
-
 @media (min-width: 768px) {
   .portfolio-card__media {
     height: 220px;
@@ -1208,6 +1193,16 @@ main [id] {
   padding: var(--space-6);
 }
 
+.portfolio-card__category {
+  font-family: var(--font-display);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent-ink);
+  margin-bottom: var(--space-2);
+}
+
 .portfolio-card__title {
   font-size: var(--fs-md);
 }
@@ -1217,6 +1212,22 @@ main [id] {
   font-size: var(--fs-sm);
   color: var(--color-text-muted);
   line-height: var(--lh-relaxed);
+}
+
+.portfolio-card__tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.portfolio-card__tech li {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--color-accent-soft);
+  color: var(--color-accent-ink);
 }
 
 .portfolio-card__body .btn {
@@ -1295,7 +1306,7 @@ main [id] {
 
 @media (min-width: 1024px) {
   .why-choose__grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -1367,131 +1378,15 @@ main [id] {
   color: var(--color-text-muted);
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .testimonials__grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 
 /* =====================================================================
-   14. PRICING
-   ===================================================================== */
-.pricing {
-  padding: var(--section-pad-y) 0;
-  background: var(--color-paper);
-}
-
-.pricing__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-6);
-}
-
-.pricing-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding: var(--space-7) var(--space-6);
-  background: var(--color-paper);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-}
-
-.pricing-card--featured {
-  order: -1;
-  border: 2px solid transparent;
-  background: linear-gradient(var(--color-paper), var(--color-paper)) padding-box,
-    var(--gradient-brand) border-box;
-  box-shadow: var(--shadow-glow);
-}
-
-.pricing-card__badge {
-  position: absolute;
-  top: -14px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: var(--fs-xs);
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  padding: var(--space-1) var(--space-4);
-  border-radius: var(--radius-pill);
-  background: var(--gradient-brand);
-  color: #fff;
-  white-space: nowrap;
-}
-
-.pricing-card__title {
-  font-size: var(--fs-lg);
-}
-
-.pricing-card__tagline {
-  margin-top: var(--space-2);
-  font-size: var(--fs-sm);
-  color: var(--color-text-muted);
-  min-height: 2.6em;
-}
-
-.pricing-card__price {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-2);
-  margin-top: var(--space-5);
-  padding-bottom: var(--space-6);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.pricing-card__amount {
-  font-family: var(--font-display);
-  font-size: var(--fs-2xl);
-  font-weight: 700;
-}
-
-.pricing-card__period {
-  font-size: var(--fs-xs);
-  color: var(--color-text-muted);
-}
-
-.pricing-card__features {
-  display: grid;
-  gap: var(--space-3);
-  margin: var(--space-6) 0 var(--space-7);
-  flex-grow: 1;
-}
-
-.pricing-card__features li {
-  position: relative;
-  padding-left: var(--space-6);
-  font-size: var(--fs-sm);
-  color: var(--color-text);
-}
-
-.pricing-card__features li::before {
-  content: "✓";
-  position: absolute;
-  left: 0;
-  top: 0.05em;
-  color: var(--color-accent-ink);
-  font-weight: 700;
-  font-size: 0.8rem;
-}
-
-@media (min-width: 1024px) {
-  .pricing__grid {
-    grid-template-columns: repeat(3, 1fr);
-    align-items: stretch;
-  }
-
-  .pricing-card--featured {
-    order: 0;
-    transform: translateY(-12px);
-  }
-}
-
-
-/* =====================================================================
-   15. FAQ
+   14. FAQ
    ===================================================================== */
 .faq {
   padding: var(--section-pad-y) 0;
