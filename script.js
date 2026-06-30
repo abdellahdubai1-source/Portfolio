@@ -84,7 +84,7 @@ const cycle = () => {
 idx = (idx + 1) % roles.length;
 setText(roles[idx]).then(() => setTimeout(cycle, 2200));
 };
-setTimeout(cycle, 2000);
+setTimeout(cycle, finePointer ? 2000 : 4200);
 }
 }
 const whenIdle = (fn) => ('requestIdleCallback' in window)
