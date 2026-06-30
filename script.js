@@ -1,532 +1,344 @@
-/* =====================================================================
-   ABDELLAH TEHA — PORTFOLIO SCRIPT
-   Vanilla JS only. Progressively enhances the markup in index.html;
-   every feature degrades gracefully if a browser API is unsupported.
-   Structure: Setup → Mobile Nav → Smooth Scroll → Scroll Effects →
-   Active Nav Link → Reveal Animations → Counters → FAQ → Contact
-   Form → Back to Top → Init.
-   ===================================================================== */
+/* =================================================================
+   ABDELLAH TEHA — Portfolio  ·  script.js
+   Vanilla JS. No frameworks.
+   Load sequence · nav · rail · scramble · reveals · counters ·
+   live previews · tilt · magnetic · cursor · form · floats.
+   All motion respects prefers-reduced-motion; degrades safely.
+================================================================= */
 (function () {
-  "use strict";
+  'use strict';
 
-  /* ===================================================================
-     0. SETUP
-     =================================================================== */
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+  const $  = (s, c = document) => c.querySelector(s);
+  const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
 
-  // Enable JS-dependent styling (scroll reveals, etc.) now that the
-  // script has actually loaded and run.
-  document.body.classList.remove("no-js");
-
-  function prefersReducedMotion() {
-    return (
-      window.matchMedia &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    );
+  /* ----------------------------------------------------------
+     1. LOAD SEQUENCE — nav slide-down + hero fade-up
+  ---------------------------------------------------------- */
+  function runLoad() {
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      const nav = $('#nav'); const hero = $('#hero');
+      if (nav) nav.classList.add('nav-ready');
+      if (hero) hero.classList.add('hero-loaded');
+    }));
   }
+  document.readyState === 'loading'
+    ? document.addEventListener('DOMContentLoaded', runLoad)
+    : runLoad();
 
-  function getCssVar(name, fallback) {
-    try {
-      var value = getComputedStyle(document.documentElement).getPropertyValue(name);
-      return value && value.trim() ? value.trim() : fallback;
-    } catch (err) {
-      return fallback;
-    }
-  }
+  /* ----------------------------------------------------------
+     2. STICKY NAV
+  ---------------------------------------------------------- */
+  const nav = $('#nav');
+  const onScroll = () => { if (nav) nav.classList.toggle('scrolled', window.scrollY > 24); };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
 
-  var header = document.querySelector(".site-header");
-  var navToggle = document.getElementById("navToggle");
-  var navCollapse = document.getElementById("navMenu");
+  /* ----------------------------------------------------------
+     3. MOBILE MENU
+  ---------------------------------------------------------- */
+  const burger = $('#burger'); const navLinks = $('#nav-links');
+  const closeMenu = () => {
+    if (!burger) return;
+    burger.classList.remove('open'); navLinks.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false'); burger.setAttribute('aria-label', 'Open menu');
+  };
+  if (burger) burger.addEventListener('click', () => {
+    const open = burger.classList.toggle('open');
+    navLinks.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  if (navLinks) navLinks.addEventListener('click', e => { if (e.target.closest('a')) closeMenu(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+  window.addEventListener('resize', () => { if (window.innerWidth > 860) closeMenu(); });
 
-
-  /* ===================================================================
-     1. MOBILE NAVIGATION
-     =================================================================== */
-
-  function openMobileMenu() {
-    if (!navToggle) return;
-    navToggle.setAttribute("aria-expanded", "true");
-    document.body.style.overflow = "hidden";
-  }
-
-  function closeMobileMenu() {
-    if (!navToggle) return;
-    navToggle.setAttribute("aria-expanded", "false");
-    document.body.style.overflow = "";
-  }
-
-  if (navToggle && navCollapse) {
-    navToggle.addEventListener("click", function () {
-      var isOpen = navToggle.getAttribute("aria-expanded") === "true";
-      if (isOpen) {
-        closeMobileMenu();
-      } else {
-        openMobileMenu();
-      }
-    });
-
-    // Close the menu whenever a link inside it is clicked.
-    navCollapse.querySelectorAll("a").forEach(function (link) {
-      link.addEventListener("click", closeMobileMenu);
-    });
-
-    // Close on Escape, returning focus to the toggle button.
-    document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape" && navToggle.getAttribute("aria-expanded") === "true") {
-        closeMobileMenu();
-        navToggle.focus();
-      }
-    });
-
-    // Close on outside click.
-    document.addEventListener("click", function (event) {
-      var isOpen = navToggle.getAttribute("aria-expanded") === "true";
-      if (!isOpen) return;
-      var clickedInside = navCollapse.contains(event.target) || navToggle.contains(event.target);
-      if (!clickedInside) {
-        closeMobileMenu();
-      }
-    });
-
-    // Reset state if the viewport grows into the desktop layout.
-    window.addEventListener("resize", function () {
-      if (window.innerWidth >= 1024) {
-        closeMobileMenu();
-      }
-    });
-  }
-
-
-  /* ===================================================================
-     2. SMOOTH SCROLLING FOR INTERNAL LINKS
-     =================================================================== */
-
-  function focusTarget(targetEl) {
-    var hadTabIndex = targetEl.hasAttribute("tabindex");
-    if (!hadTabIndex) {
-      targetEl.setAttribute("tabindex", "-1");
-    }
-    targetEl.focus({ preventScroll: true });
-    if (!hadTabIndex) {
-      targetEl.addEventListener(
-        "blur",
-        function handleBlur() {
-          targetEl.removeAttribute("tabindex");
-          targetEl.removeEventListener("blur", handleBlur);
-        },
-        { once: true }
-      );
-    }
-  }
-
-  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
-    // Let the skip link jump instantly — speed matters more than easing there.
-    if (link.classList.contains("skip-link")) return;
-
-    link.addEventListener("click", function (event) {
-      var href = link.getAttribute("href");
-
-      if (!href || href === "#") {
-        event.preventDefault();
-        return;
-      }
-
-      // Links that open elsewhere (e.g. placeholder demo/GitHub buttons).
-      if (link.hasAttribute("target")) return;
-
-      var targetEl;
-      try {
-        targetEl = document.querySelector(href);
-      } catch (err) {
-        targetEl = null;
-      }
-      if (!targetEl) return;
-
-      event.preventDefault();
-      targetEl.scrollIntoView({
-        behavior: prefersReducedMotion() ? "auto" : "smooth",
-        block: "start",
-      });
-
-      if (window.history && window.history.pushState) {
-        window.history.pushState(null, "", href);
-      }
-
-      focusTarget(targetEl);
+  /* ----------------------------------------------------------
+     4. SMOOTH ANCHOR SCROLL (with nav offset)
+  ---------------------------------------------------------- */
+  $$('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const id = link.getAttribute('href');
+      if (!id || id === '#') return;
+      const target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      const navH = nav ? nav.offsetHeight : 0;
+      const top = target.getBoundingClientRect().top + window.scrollY - navH + 1;
+      window.scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' });
     });
   });
 
+  /* ----------------------------------------------------------
+     5. HERO ROLE TEXT SCRAMBLE
+  ---------------------------------------------------------- */
+  const scrambleEl = $('#scramble');
+  if (scrambleEl) {
+    const roles = ['Web Designer', 'Frontend Developer', 'AI Automation Specialist'];
+    const chars = '!<>-_\\/[]{}—=+*^?#________';
+    let idx = 0;
 
-  /* ===================================================================
-     3. SCROLL EFFECTS — sticky header state + back-to-top visibility
-     =================================================================== */
-
-  var scrollTicking = false;
-  var headerScrolled = false;
-
-  function updateHeaderState() {
-    if (!header) return;
-    var shouldBeScrolled = window.scrollY > 12;
-    if (shouldBeScrolled !== headerScrolled) {
-      headerScrolled = shouldBeScrolled;
-      header.classList.toggle("site-header--scrolled", headerScrolled);
-      header.style.boxShadow = headerScrolled ? "0 12px 32px rgba(0, 0, 0, 0.35)" : "";
-    }
-  }
-
-  function onScroll() {
-    if (scrollTicking) return;
-    scrollTicking = true;
-    window.requestAnimationFrame(function () {
-      updateHeaderState();
-      updateBackToTopVisibility();
-      scrollTicking = false;
-    });
-  }
-
-  window.addEventListener("scroll", onScroll, { passive: true });
-
-
-  /* ===================================================================
-     4. ACTIVE NAV LINK WHILE SCROLLING
-     =================================================================== */
-
-  var sectionIds = ["home", "about", "services", "featured-project", "portfolio", "contact"];
-  var navLinks = document.querySelectorAll(".nav__link");
-
-  function setActiveLink(id) {
-    navLinks.forEach(function (link) {
-      if (link.getAttribute("href") === "#" + id) {
-        link.setAttribute("aria-current", "page");
-      } else {
-        link.removeAttribute("aria-current");
-      }
-    });
-  }
-
-  if ("IntersectionObserver" in window && navLinks.length) {
-    var trackedSections = sectionIds
-      .map(function (id) {
-        return document.getElementById(id);
-      })
-      .filter(Boolean);
-
-    if (trackedSections.length) {
-      var headerOffset = header ? header.offsetHeight : 76;
-      var sectionObserver = new IntersectionObserver(
-        function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              setActiveLink(entry.target.id);
-            }
-          });
-        },
-        { root: null, rootMargin: "-" + (headerOffset + 1) + "px 0px -70% 0px", threshold: 0 }
-      );
-      trackedSections.forEach(function (section) {
-        sectionObserver.observe(section);
+    if (reduce) {
+      // No animation — just rotate text gently with a timer.
+      setInterval(() => { idx = (idx + 1) % roles.length; scrambleEl.textContent = roles[idx]; }, 2600);
+    } else {
+      const setText = (newText) => new Promise(resolve => {
+        const old = scrambleEl.textContent;
+        const len = Math.max(old.length, newText.length);
+        const queue = [];
+        for (let i = 0; i < len; i++) {
+          const from = old[i] || '';
+          const to = newText[i] || '';
+          const start = Math.floor(Math.random() * 30);
+          const end = start + Math.floor(Math.random() * 30) + 10;
+          queue.push({ from, to, start, end, char: '' });
+        }
+        let frame = 0; let raf;
+        const update = () => {
+          let out = ''; let complete = 0;
+          for (const q of queue) {
+            if (frame >= q.end) { complete++; out += q.to; }
+            else if (frame >= q.start) {
+              if (!q.char || Math.random() < 0.28) q.char = chars[Math.floor(Math.random() * chars.length)];
+              out += `<span style="color:#475569">${q.char}</span>`;
+            } else out += q.from;
+          }
+          scrambleEl.innerHTML = out;
+          if (complete === queue.length) { cancelAnimationFrame(raf); resolve(); }
+          else { frame++; raf = requestAnimationFrame(update); }
+        };
+        update();
       });
+      const cycle = () => {
+        idx = (idx + 1) % roles.length;
+        setText(roles[idx]).then(() => setTimeout(cycle, 2200));
+      };
+      setTimeout(cycle, 2000);
     }
   }
 
-
-  /* ===================================================================
-     5. REVEAL ANIMATIONS FOR [data-animate]
-     =================================================================== */
-
-  var animatedEls = document.querySelectorAll("[data-animate]");
-
-  if ("IntersectionObserver" in window && animatedEls.length) {
-    var revealObserver = new IntersectionObserver(
-      function (entries, observer) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
-    );
-    animatedEls.forEach(function (el) {
-      revealObserver.observe(el);
-    });
+  /* ----------------------------------------------------------
+     6. SCROLL REVEAL + stagger (safe fallback to visible)
+  ---------------------------------------------------------- */
+  const revealEls = $$('[data-reveal]');
+  if (reduce || !('IntersectionObserver' in window)) {
+    revealEls.forEach(el => el.classList.add('in'));
   } else {
-    // No IntersectionObserver support — show everything immediately.
-    animatedEls.forEach(function (el) {
-      el.classList.add("is-visible");
+    $$('.proj-grid, .skill-grid, .serv-grid').forEach(parent => {
+      $$('[data-reveal]', parent).forEach((el, i) => el.style.setProperty('--stagger', (i % 4) * 90 + 'ms'));
     });
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); obs.unobserve(en.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(el => io.observe(el));
+    window.addEventListener('load', () => setTimeout(() => {
+      revealEls.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('in'); });
+    }, 600));
   }
 
-
-  /* ===================================================================
-     6. COUNTER ANIMATION FOR [data-counter]
-     =================================================================== */
-
-  function animateCounter(el) {
-    var target = parseFloat(el.getAttribute("data-target"));
-    if (isNaN(target)) return;
-
-    var originalText = el.textContent.trim();
-    var suffixMatch = originalText.match(/[^\d.\-]+$/);
-    var suffix = suffixMatch ? suffixMatch[0] : "";
-
-    if (prefersReducedMotion()) {
-      el.textContent = target + suffix;
-      return;
-    }
-
-    var duration = 1200;
-    var startTime = null;
-
-    function tick(now) {
-      if (startTime === null) startTime = now;
-      var progress = Math.min((now - startTime) / duration, 1);
-      var eased = 1 - Math.pow(1 - progress, 3);
-      var current = Math.round(eased * target);
-      el.textContent = current + suffix;
-      if (progress < 1) {
-        window.requestAnimationFrame(tick);
-      } else {
-        el.textContent = target + suffix;
-      }
-    }
-
-    window.requestAnimationFrame(tick);
-  }
-
-  var counterEls = document.querySelectorAll("[data-counter]");
-
-  if ("IntersectionObserver" in window && counterEls.length) {
-    var counterObserver = new IntersectionObserver(
-      function (entries, observer) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            animateCounter(entry.target);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.4 }
-    );
-    counterEls.forEach(function (el) {
-      counterObserver.observe(el);
-    });
-  } else {
-    counterEls.forEach(animateCounter);
-  }
-
-
-  /* ===================================================================
-     7. FAQ — smooth open/close for native <details>
-     =================================================================== */
-
-  var supportsWebAnimations = typeof Element.prototype.animate === "function";
-
-  function openFaqItem(item, answer) {
-    item.setAttribute("open", "");
-    var endHeight = answer.scrollHeight;
-    answer.style.overflow = "hidden";
-    var animation = answer.animate(
-      [{ height: "0px", opacity: 0 }, { height: endHeight + "px", opacity: 1 }],
-      { duration: 220, easing: "ease-out" }
-    );
-    animation.onfinish = function () {
-      answer.style.overflow = "";
-      answer.style.height = "";
+  /* ----------------------------------------------------------
+     7. COUNTERS
+  ---------------------------------------------------------- */
+  const counters = $$('.counter');
+  const runCounter = el => {
+    const target = parseFloat(el.dataset.target) || 0;
+    if (reduce) { el.textContent = target; return; }
+    const dur = 1500, start = performance.now();
+    const tick = now => {
+      const p = Math.min((now - start) / dur, 1);
+      const eased = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
+      el.textContent = Math.round(target * eased);
+      if (p < 1) requestAnimationFrame(tick); else el.textContent = target;
     };
+    requestAnimationFrame(tick);
+  };
+  if (counters.length) {
+    if (!('IntersectionObserver' in window)) counters.forEach(runCounter);
+    else {
+      const co = new IntersectionObserver((entries, obs) => {
+        entries.forEach(en => { if (en.isIntersecting) { runCounter(en.target); obs.unobserve(en.target); } });
+      }, { threshold: 0.6 });
+      counters.forEach(c => co.observe(c));
+    }
   }
 
-  function closeFaqItem(item, answer) {
-    var startHeight = answer.scrollHeight;
-    answer.style.overflow = "hidden";
-    var animation = answer.animate(
-      [{ height: startHeight + "px", opacity: 1 }, { height: "0px", opacity: 0 }],
-      { duration: 200, easing: "ease-in" }
-    );
-    animation.onfinish = function () {
-      item.removeAttribute("open");
-      answer.style.overflow = "";
-      answer.style.height = "";
-    };
-  }
-
-  if (supportsWebAnimations && !prefersReducedMotion()) {
-    document.querySelectorAll(".faq-item").forEach(function (item) {
-      var summary = item.querySelector(".faq-item__question");
-      var answer = item.querySelector(".faq-item__answer");
-      if (!summary || !answer) return;
-
-      summary.addEventListener("click", function (event) {
-        event.preventDefault();
-        answer.getAnimations().forEach(function (animation) {
-          animation.cancel();
-        });
-        if (item.hasAttribute("open")) {
-          closeFaqItem(item, answer);
-        } else {
-          openFaqItem(item, answer);
+  /* ----------------------------------------------------------
+     8. STATUS RAIL — active section tracking
+  ---------------------------------------------------------- */
+  const railLinks = $$('.rail-dots a');
+  if (railLinks.length && 'IntersectionObserver' in window) {
+    const map = {};
+    railLinks.forEach(a => map[a.dataset.rail] = a);
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          railLinks.forEach(a => a.classList.remove('active'));
+          const a = map[en.target.id]; if (a) a.classList.add('active');
         }
       });
+    }, { threshold: 0.4, rootMargin: '-30% 0px -50% 0px' });
+    ['hero','projects','about','skills','services','why','contact']
+      .map(id => document.getElementById(id)).filter(Boolean).forEach(s => ro.observe(s));
+  }
+
+  /* ----------------------------------------------------------
+     9. LIVE PROJECT PREVIEWS — poster first, iframe on hover/tap
+        iframe is visual-only (pointer-events:none) so it never
+        hijacks scroll; "Live Demo" opens the real site to interact.
+  ---------------------------------------------------------- */
+  $$('.proj-card').forEach(card => {
+    const screen = $('.screen', card);
+    const toggle = $('.preview-toggle', card);
+    if (!screen) return;
+    const url = screen.dataset.live;
+    const title = screen.dataset.title || 'Live preview';
+    let mounted = false;
+
+    const mount = () => {
+      if (mounted) return; mounted = true;
+      const frame = document.createElement('iframe');
+      frame.title = title;
+      frame.loading = 'lazy';
+      frame.setAttribute('tabindex', '-1');
+      frame.setAttribute('aria-hidden', 'true');
+      frame.src = url;
+      screen.appendChild(frame);
+    };
+    const show = () => { mount(); screen.classList.add('live'); if (toggle){ toggle.setAttribute('aria-pressed','true'); toggle.textContent='Live'; } };
+    const hide = () => { screen.classList.remove('live'); if (toggle){ toggle.setAttribute('aria-pressed','false'); toggle.textContent='Preview live'; } };
+
+    // Desktop: hover reveals live preview
+    if (finePointer && !reduce) {
+      card.addEventListener('mouseenter', show);
+      card.addEventListener('mouseleave', hide);
+    }
+    // Touch / explicit toggle button
+    if (toggle) {
+      toggle.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        screen.classList.contains('live') ? hide() : show();
+      });
+    }
+    // Tap the screen on touch devices
+    screen.addEventListener('click', () => { if (!finePointer) (screen.classList.contains('live') ? hide() : show()); });
+  });
+
+  /* ----------------------------------------------------------
+     10. 3D TILT on project cards (desktop only)
+  ---------------------------------------------------------- */
+  if (finePointer && !reduce) {
+    $$('[data-tilt]').forEach(card => {
+      const max = 6;
+      let raf = null;
+      const onMove = e => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          const baseY = card.matches(':nth-child(even)') ? 36 : 0; // keep desktop offset
+          card.style.transform =
+            `perspective(1000px) rotateX(${(-py*max).toFixed(2)}deg) rotateY(${(px*max).toFixed(2)}deg) translateY(${baseY}px)`;
+        });
+      };
+      const reset = () => { if (raf) cancelAnimationFrame(raf); card.style.transform = ''; };
+      card.addEventListener('mousemove', onMove);
+      card.addEventListener('mouseleave', reset);
     });
   }
-  // Otherwise: native <details>/<summary> behavior is left untouched —
-  // it is already fully accessible and works with no JS at all.
 
-
-  /* ===================================================================
-     8. CONTACT FORM — basic client-side validation
-     =================================================================== */
-
-  var contactForm = document.querySelector(".contact__form");
-
-  function clearFieldError(fieldEl) {
-    fieldEl.removeAttribute("aria-invalid");
-    fieldEl.removeAttribute("aria-describedby");
-    var errorEl = document.getElementById(fieldEl.id + "-error");
-    if (errorEl) errorEl.remove();
+  /* ----------------------------------------------------------
+     11. MAGNETIC BUTTONS (desktop only)
+  ---------------------------------------------------------- */
+  if (finePointer && !reduce) {
+    $$('[data-magnetic]').forEach(el => {
+      const strength = 0.32;
+      el.addEventListener('mousemove', e => {
+        const r = el.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width / 2) * strength;
+        const y = (e.clientY - r.top - r.height / 2) * strength;
+        el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
+      });
+      el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+    });
   }
 
-  function showFieldError(fieldEl, message) {
-    fieldEl.setAttribute("aria-invalid", "true");
-    var errorId = fieldEl.id + "-error";
-    fieldEl.setAttribute("aria-describedby", errorId);
-
-    var errorEl = document.getElementById(errorId);
-    if (!errorEl) {
-      errorEl = document.createElement("p");
-      errorEl.id = errorId;
-      errorEl.setAttribute("role", "alert");
-      errorEl.style.color = "#e0245e";
-      errorEl.style.fontSize = "0.8125rem";
-      errorEl.style.marginTop = "0.4rem";
-      fieldEl.insertAdjacentElement("afterend", errorEl);
-    }
-    errorEl.textContent = message;
-  }
-
-  var successTimeoutId = null;
-
-  function showFormSuccess(formEl) {
-    var successEl = formEl.querySelector(".form-success-message");
-    if (!successEl) {
-      successEl = document.createElement("p");
-      successEl.className = "form-success-message";
-      successEl.setAttribute("role", "status");
-      successEl.style.marginTop = "1rem";
-      successEl.style.fontSize = "0.9375rem";
-      successEl.style.fontWeight = "600";
-      successEl.style.color = "#1fae6b";
-      formEl.appendChild(successEl);
-    }
-    successEl.textContent =
-      "Thanks! Your message has been received \u2014 I'll get back to you within a few hours.";
-
-    window.clearTimeout(successTimeoutId);
-    successTimeoutId = window.setTimeout(function () {
-      if (successEl && successEl.parentNode) successEl.remove();
-    }, 6000);
-  }
-
-  if (contactForm) {
-    var nameField = contactForm.querySelector("#contactName");
-    var emailField = contactForm.querySelector("#contactEmail");
-    var messageField = contactForm.querySelector("#contactMessage");
-    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    contactForm.addEventListener("submit", function (event) {
-      event.preventDefault();
-
-      var fields = [
-        { el: nameField, isValid: function (v) { return v.trim().length > 1; }, message: "Please enter your full name." },
-        { el: emailField, isValid: function (v) { return emailPattern.test(v.trim()); }, message: "Please enter a valid email address." },
-        { el: messageField, isValid: function (v) { return v.trim().length > 9; }, message: "Please add a short message (10+ characters)." },
-      ];
-
-      var isFormValid = true;
-
-      fields.forEach(function (field) {
-        if (!field.el) return;
-        clearFieldError(field.el);
-        if (!field.isValid(field.el.value || "")) {
-          isFormValid = false;
-          showFieldError(field.el, field.message);
+  /* ----------------------------------------------------------
+     12. CUSTOM CURSOR + aurora cursor-light (desktop only)
+  ---------------------------------------------------------- */
+  if (finePointer && !reduce) {
+    const dot = $('#cursor');
+    const light = $('.cursor-light');
+    if (dot) {
+      document.body.classList.add('has-cursor');
+      let x = 0, y = 0, cx = 0, cy = 0;
+      window.addEventListener('mousemove', e => {
+        x = e.clientX; y = e.clientY;
+        dot.style.opacity = '1';
+        if (light) {
+          light.style.setProperty('--mx', (x / window.innerWidth * 100) + '%');
+          light.style.setProperty('--my', (y / window.innerHeight * 100) + '%');
         }
       });
+      const loop = () => {
+        cx += (x - cx) * 0.2; cy += (y - cy) * 0.2;
+        dot.style.transform = `translate(${cx}px, ${cy}px) translate(-50%,-50%)`;
+        requestAnimationFrame(loop);
+      };
+      loop();
+      window.addEventListener('mouseleave', () => dot.style.opacity = '0');
+      $$('a, button, [data-magnetic], .proj-card, .tile').forEach(el => {
+        el.addEventListener('mouseenter', () => dot.classList.add('active'));
+        el.addEventListener('mouseleave', () => dot.classList.remove('active'));
+      });
+    }
+  }
 
-      if (!isFormValid) {
-        var firstInvalid = contactForm.querySelector('[aria-invalid="true"]');
-        if (firstInvalid) firstInvalid.focus();
+  /* ----------------------------------------------------------
+     13. BACK TO TOP
+  ---------------------------------------------------------- */
+  const toTop = $('#to-top');
+  if (toTop) {
+    const s = () => toTop.classList.toggle('show', window.scrollY > 700);
+    s(); window.addEventListener('scroll', s, { passive: true });
+    toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }));
+  }
+
+  /* ----------------------------------------------------------
+     14. CONTACT FORM — validate + open mail draft
+  ---------------------------------------------------------- */
+  const form = $('#contact-form'); const status = $('#form-status');
+  if (form) {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = $('#c-name').value.trim();
+      const email = $('#c-email').value.trim();
+      const msg = $('#c-msg').value.trim();
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      let ok = true;
+      [['#c-name', name], ['#c-email', email && emailOk], ['#c-msg', msg]].forEach(([sel, valid]) => {
+        $(sel).style.borderColor = valid ? '' : '#f87171';
+        if (!valid) ok = false;
+      });
+      if (!ok) {
+        if (status) { status.textContent = 'Please fill in every field with a valid email.'; status.className = 'form-status err'; }
         return;
       }
-
-      showFormSuccess(contactForm);
-      contactForm.reset();
+      const subject = encodeURIComponent(`New project enquiry from ${name}`);
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${msg}`);
+      window.location.href = `mailto:abdellateha7@gmail.com?subject=${subject}&body=${body}`;
+      if (status) { status.textContent = `Thanks, ${name.split(' ')[0]} — opening your email app to send.`; status.className = 'form-status ok'; }
+      form.reset();
+    });
+    form.addEventListener('input', e => {
+      if (e.target.matches('input,textarea') && e.target.value.trim()) e.target.style.borderColor = '';
     });
   }
 
+  /* ----------------------------------------------------------
+     15. FOOTER YEAR
+  ---------------------------------------------------------- */
+  const yr = $('#year'); if (yr) yr.textContent = new Date().getFullYear();
 
-  /* ===================================================================
-     9. BACK TO TOP BUTTON (created dynamically, styled from CSS tokens)
-     =================================================================== */
-
-  function createBackToTopButton() {
-    var button = document.createElement("button");
-    button.type = "button";
-    button.id = "backToTop";
-    button.setAttribute("aria-label", "Back to top");
-    button.textContent = "\u2191";
-
-    var accent = getCssVar("--color-accent", "#6c5ce7");
-    var accent2 = getCssVar("--color-accent-2", "#36c2ff");
-
-    Object.assign(button.style, {
-      position: "fixed",
-      right: "20px",
-      bottom: "20px",
-      width: "48px",
-      height: "48px",
-      borderRadius: "50%",
-      border: "none",
-      background: "linear-gradient(135deg, " + accent + ", " + accent2 + ")",
-      color: "#ffffff",
-      fontSize: "1.25rem",
-      lineHeight: "1",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      cursor: "pointer",
-      boxShadow: "0 14px 30px rgba(108, 92, 231, 0.4)",
-      opacity: "0",
-      visibility: "hidden",
-      transform: "translateY(12px)",
-      transition: "opacity .3s ease, transform .3s ease, visibility .3s ease",
-      zIndex: "95",
-    });
-
-    button.addEventListener("click", function () {
-      window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
-      var brandLink = document.querySelector(".site-header .nav__brand");
-      if (brandLink) brandLink.focus();
-    });
-
-    document.body.appendChild(button);
-    return button;
-  }
-
-  var backToTopButton = createBackToTopButton();
-
-  function updateBackToTopVisibility() {
-    if (!backToTopButton) return;
-    var shouldShow = window.scrollY > 480;
-    backToTopButton.style.opacity = shouldShow ? "1" : "0";
-    backToTopButton.style.visibility = shouldShow ? "visible" : "hidden";
-    backToTopButton.style.transform = shouldShow ? "translateY(0)" : "translateY(12px)";
-  }
-
-
-  /* ===================================================================
-     10. INIT — set correct initial state on load
-     =================================================================== */
-
-  onScroll();
 })();
