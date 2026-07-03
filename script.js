@@ -142,6 +142,40 @@ const a = map[en.target.id]; if (a) a.classList.add('active');
 ['hero','projects','about','skills','services','why','contact']
 .map(id => document.getElementById(id)).filter(Boolean).forEach(s => ro.observe(s));
 }
+const filterBar = $('.proj-filter');
+if (filterBar) {
+const filterBtns = $$('.filter-btn', filterBar);
+const projGrid = $('#proj-grid') || $('.proj-grid');
+const cards = projGrid ? $$('.proj-card', projGrid) : [];
+const HIDE_DELAY = reduce ? 0 : 380;
+const applyFilter = (cat) => {
+cards.forEach(card => {
+const match = cat === 'all' || card.dataset.category === cat;
+if (match) {
+if (card.style.display === 'none') {
+card.style.display = '';
+void card.offsetWidth; // force reflow so the transition runs
+}
+card.classList.remove('filter-hidden');
+card.removeAttribute('aria-hidden');
+} else {
+card.classList.add('filter-hidden');
+card.setAttribute('aria-hidden', 'true');
+window.setTimeout(() => {
+if (card.classList.contains('filter-hidden')) card.style.display = 'none';
+}, HIDE_DELAY);
+}
+});
+};
+filterBtns.forEach(btn => {
+btn.addEventListener('click', () => {
+if (btn.classList.contains('active')) return;
+filterBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
+applyFilter(btn.dataset.filter);
+});
+});
+}
 $$('.proj-card').forEach(card => {
 const screen = $('.screen', card);
 const toggle = $('.preview-toggle', card);
