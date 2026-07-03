@@ -238,9 +238,18 @@
           <p class="section-intro">Hover a card on desktop, or tap "Preview live" on mobile, to watch the actual website run inside the frame.</p>
         </header>
 
-        <div class="proj-grid">
+        <div class="proj-filter" role="tablist" aria-label="Filter portfolio by category" data-reveal>
+          <button type="button" class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All</button>
+          <button type="button" class="filter-btn" data-filter="healthcare" role="tab" aria-selected="false">Healthcare</button>
+          <button type="button" class="filter-btn" data-filter="beauty" role="tab" aria-selected="false">Beauty</button>
+          <button type="button" class="filter-btn" data-filter="restaurant" role="tab" aria-selected="false">Restaurant</button>
+          <button type="button" class="filter-btn" data-filter="automotive" role="tab" aria-selected="false">Automotive</button>
+          <button type="button" class="filter-btn" data-filter="mobile-store" role="tab" aria-selected="false">Mobile Store</button>
+        </div>
 
-          <article class="proj-card" data-reveal data-tilt>
+        <div class="proj-grid" id="proj-grid">
+
+          <article class="proj-card" data-reveal data-tilt data-category="mobile-store">
             <div class="browser">
               <div class="browser-bar">
                 <span class="dots"><i></i><i></i><i></i></span>
@@ -259,12 +268,38 @@
               </div>
               <div class="chips"><span>HTML</span><span>CSS</span><span>JS</span><span>AI</span></div>
             </div>
-            <a class="proj-link" href="https://abdellahdubai1-source.github.io/Smart-mobile/" target="_blank" rel="noopener" data-magnetic>
+            <a class="proj-link" href="https://github.com/abdellahdubai1-source/Smart-mobile" target="_blank" rel="noopener noreferrer" data-magnetic>
               Live Demo <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
             </a>
           </article>
 
-          <article class="proj-card" data-reveal data-tilt>
+          <article class="proj-card" data-reveal data-tilt data-category="beauty">
+            <div class="browser">
+              <div class="browser-bar">
+                <span class="dots"><i></i><i></i><i></i></span>
+                <span class="url">abdellahdubai1-source.github.io/Glow-Beauty-Salon</span>
+                <button class="preview-toggle" type="button" aria-pressed="false">Preview live</button>
+              </div>
+              <div class="screen" data-live="https://abdellahdubai1-source.github.io/Glow-Beauty-Salon/" data-title="Glow Beauty Salon live preview">
+                <div class="shot shot-placeholder" role="img" aria-label="Glow Beauty Salon website preview">
+                  <span class="ph-mark">GB</span>
+                </div>
+                <span class="screen-hint">Hover or tap to load live</span>
+              </div>
+            </div>
+            <div class="proj-meta">
+              <div class="proj-text">
+                <h3>Glow Beauty Salon</h3>
+                <p class="proj-role">Beauty Salon · Design + Build</p>
+              </div>
+              <div class="chips"><span>HTML</span><span>CSS</span><span>JS</span></div>
+            </div>
+            <a class="proj-link" href="https://abdellahdubai1-source.github.io/Glow-Beauty-Salon/" target="_blank" rel="noopener noreferrer" data-magnetic>
+              Live Demo <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </a>
+          </article>
+
+          <article class="proj-card" data-reveal data-tilt data-category="restaurant">
             <div class="browser">
               <div class="browser-bar">
                 <span class="dots"><i></i><i></i><i></i></span>
@@ -283,12 +318,12 @@
               </div>
               <div class="chips"><span>HTML</span><span>CSS</span><span>JS</span></div>
             </div>
-            <a class="proj-link" href="https://abdellahdubai1-source.github.io/The-Olive-Table/" target="_blank" rel="noopener" data-magnetic>
+            <a class="proj-link" href="https://github.com/abdellahdubai1-source/The-Olive-Table" target="_blank" rel="noopener noreferrer" data-magnetic>
               Live Demo <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
             </a>
           </article>
 
-          <article class="proj-card" data-reveal data-tilt>
+          <article class="proj-card" data-reveal data-tilt data-category="automotive">
             <div class="browser">
               <div class="browser-bar">
                 <span class="dots"><i></i><i></i><i></i></span>
@@ -307,12 +342,12 @@
               </div>
               <div class="chips"><span>HTML</span><span>CSS</span><span>JS</span></div>
             </div>
-            <a class="proj-link" href="https://abdellahdubai1-source.github.io/Garage/" target="_blank" rel="noopener" data-magnetic>
+            <a class="proj-link" href="https://github.com/abdellahdubai1-source/Garage" target="_blank" rel="noopener noreferrer" data-magnetic>
               Live Demo <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
             </a>
           </article>
 
-          <article class="proj-card" data-reveal data-tilt>
+          <article class="proj-card" data-reveal data-tilt data-category="healthcare">
             <div class="browser">
               <div class="browser-bar">
                 <span class="dots"><i></i><i></i><i></i></span>
@@ -331,7 +366,7 @@
               </div>
               <div class="chips"><span>HTML</span><span>CSS</span><span>JS</span></div>
             </div>
-            <a class="proj-link" href="https://abdellahdubai1-source.github.io/clinic/" target="_blank" rel="noopener" data-magnetic>
+            <a class="proj-link" href="https://github.com/abdellahdubai1-source/clinic" target="_blank" rel="noopener noreferrer" data-magnetic>
               Live Demo <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
             </a>
           </article>
