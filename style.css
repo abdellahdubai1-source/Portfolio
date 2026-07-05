@@ -15,3 +15,6 @@
 .ph-mark{position:relative;z-index:1;font-family:var(--font-d);font-weight:600;font-size:2.4rem;letter-spacing:-.02em;color:var(--white);opacity:.92}
 @media(max-width:640px){.proj-filter{margin-inline:calc(var(--gutter) * -1);padding-inline:var(--gutter);padding-bottom:2px}}
 @media(prefers-reduced-motion:reduce){.filter-btn{transition-duration:.001ms!important}.proj-card.filter-hidden{opacity:1!important;transform:none!important}}
+
+/* ============ NEW PROJECT CARD DESCRIPTION (added for Bright Smile Dental Clinic; matches existing typography) ============ */
+.proj-desc{font-size:.86rem;color:var(--slate);margin-top:8px;line-height:1.6}
