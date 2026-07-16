@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google Analytics + Microsoft Clarity (both kept).
-       Loaded on first interaction or after 3.5s so their JS does not block
-       the initial mobile render. Events queue immediately, so data is preserved. -->
+  <!-- Google Analytics + Microsoft Clarity. Loaded on first interaction or after
+       3.5s so their JS never blocks the initial render. Events queue immediately. -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -28,49 +27,24 @@
       setTimeout(loadAnalytics, 3500);
     })();
   </script>
-  <script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"Person",
-  "name":"Abdellah Teha",
-  "url":"https://abdellahteha.com",
-  "image":"https://abdellahteha.com/abdellah-profile.webp",
-  "jobTitle":"Web Designer, Frontend Developer & AI Automation Specialist",
-  "description":"Abdellah Teha builds premium websites, AI automation systems and digital solutions for businesses.",
-  "email":"abdellahteha7@gmail.com",
-  "sameAs":[
-    "https://github.com/abdellahdubai1-source"
-  ],
-  "knowsAbout":[
-    "Web Design",
-    "Frontend Development",
-    "AI Automation",
-    "JavaScript",
-    "HTML",
-    "CSS",
-    "SEO",
-    "Digital Marketing"
-  ]
-}
-</script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="color-scheme" content="dark" />
+  <meta name="color-scheme" content="light" />
 
   <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
   <link rel="dns-prefetch" href="https://www.clarity.ms" />
 
-  <!-- No-FOUC: flag JS before paint so reveal states apply cleanly.
-       If JS is off, this never runs and all content stays visible. -->
+  <!-- No-FOUC: flag JS before paint so reveal states apply cleanly. -->
   <script>document.documentElement.classList.add('js');</script>
 
   <!-- ============ PRIMARY SEO ============ -->
-  <title>Abdellah Teha — Web Designer, Frontend Developer &amp; AI Automation Specialist</title>
-  <meta name="description" content="Abdellah Teha designs and builds premium, high-converting websites — web design, frontend development and AI automation. View live projects and get in touch." />
-  <meta name="keywords" content="Abdellah Teha, web designer, frontend developer, AI automation specialist, premium websites, portfolio, freelance web developer, UI UX designer" />
+  <title>Abdellah Teha | Web Designer &amp; Frontend Developer in Dubai</title>
+  <meta name="description" content="Freelance web designer and frontend developer in Dubai creating modern, responsive, and conversion-focused websites for businesses." />
+  <meta name="keywords" content="Abdellah Teha, web designer Dubai, frontend developer Dubai, freelance web designer, business website design" />
   <meta name="author" content="Abdellah Teha" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-  <meta name="theme-color" content="#050816" />
+  <meta name="theme-color" content="#F7F5F1" />
   <link rel="canonical" href="https://abdellahteha.com/" />
 
   <!-- ============ FAVICON / ICONS ============ -->
@@ -80,8 +54,8 @@
   <!-- ============ OPEN GRAPH ============ -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Abdellah Teha" />
-  <meta property="og:title" content="Abdellah Teha — Web Designer, Frontend Developer &amp; AI Automation Specialist" />
-  <meta property="og:description" content="Building premium websites that grow businesses. Web design, frontend development and AI automation. See live work." />
+  <meta property="og:title" content="Abdellah Teha | Web Designer &amp; Frontend Developer in Dubai" />
+  <meta property="og:description" content="Freelance web designer and frontend developer in Dubai creating modern, responsive, and conversion-focused websites for businesses." />
   <meta property="og:image" content="https://abdellahteha.com/abdellah-profile.webp" />
   <meta property="og:image:alt" content="Abdellah Teha — Web Designer &amp; Frontend Developer" />
   <meta property="og:url" content="https://abdellahteha.com/" />
@@ -89,20 +63,17 @@
 
   <!-- ============ TWITTER ============ -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Abdellah Teha — Web Designer, Frontend Developer &amp; AI Automation Specialist" />
-  <meta name="twitter:description" content="Premium websites that grow businesses. Design · Frontend · AI Automation." />
+  <meta name="twitter:title" content="Abdellah Teha | Web Designer &amp; Frontend Developer in Dubai" />
+  <meta name="twitter:description" content="Freelance web designer and frontend developer in Dubai creating modern, responsive, and conversion-focused websites for businesses." />
   <meta name="twitter:image" content="https://abdellahteha.com/abdellah-profile.webp" />
   <meta name="twitter:image:alt" content="Abdellah Teha — Web Designer &amp; Frontend Developer" />
 
   <!-- ============ FONTS ============ -->
-  <!-- Fonts: preconnect + non-render-blocking load (swap shows fallback instantly) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" /></noscript>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@400;500;600;700&display=swap" /></noscript>
 
-  <!-- Above-the-fold CRITICAL CSS inlined (no render-blocking). Full sheet loads async. -->
-  <style>:root{--bg:#050816;--bg-2:#0A0F24;--bg-3:#0D1430;--white:#FFFFFF;--slate:#94A3B8;--muted:#64748B;--accent:#3B82F6;--accent-2:#60A5FA;--accent-d:#2563EB;--accent-glow:rgba(59,130,246,.45);--glass:rgba(255,255,255,.04);--glass-2:rgba(255,255,255,.06);--line:rgba(255,255,255,.09);--line-2:rgba(255,255,255,.14);--font-d:"Space Grotesk",system-ui,sans-serif;--font-b:"Inter",system-ui,-apple-system,sans-serif;--font-m:"JetBrains Mono",ui-monospace,monospace;--container:1200px;--gutter:clamp(20px,5vw,40px);--section-y:clamp(80px,12vw,150px);--radius:18px;--radius-sm:12px;--ease:cubic-bezier(.22,.61,.36,1)}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}body{font-family:var(--font-b);background:var(--bg);color:var(--slate);line-height:1.65;font-size:16px;overflow-x:hidden;-webkit-font-smoothing:antialiased;position:relative}img{display:block;max-width:100%;height:auto}a{color:inherit;text-decoration:none}ul,ol{list-style:none}button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}input,textarea{font-family:inherit}::selection{background:rgba(59,130,246,.32);color:#fff}.skip-link{position:absolute;left:14px;top:-60px;background:var(--accent);color:#fff;padding:10px 16px;border-radius:8px;z-index:3000;transition:top .2s;font-weight:600}.skip-link:focus{top:14px}:focus-visible{outline:2px solid var(--accent-2);outline-offset:3px;border-radius:6px}.container{width:100%;max-width:var(--container);margin-inline:auto;padding-inline:var(--gutter)}.aurora{position:fixed;inset:0;z-index:-2;overflow:hidden;background:radial-gradient(1200px 700px at 80% -10%,rgba(37,99,235,.12),transparent 60%),radial-gradient(900px 600px at 0% 100%,rgba(59,130,246,.10),transparent 60%),var(--bg)}.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;mix-blend-mode:screen;will-change:transform}.b1{width:46vw;height:46vw;left:-8vw;top:-6vw;background:radial-gradient(circle,#1e63d6,transparent 65%);animation:drift1 26s var(--ease) infinite alternate}.b2{width:40vw;height:40vw;right:-6vw;top:18vh;background:radial-gradient(circle,#3B82F6,transparent 62%);animation:drift2 30s var(--ease) infinite alternate}.b3{width:48vw;height:48vw;left:24vw;bottom:-18vw;background:radial-gradient(circle,#2546b8,transparent 66%);animation:drift3 34s var(--ease) infinite alternate}@keyframes drift1{to{transform:translate3d(8vw,6vh,0) scale(1.15)}}@keyframes drift2{to{transform:translate3d(-7vw,4vh,0) scale(1.1)}}@keyframes drift3{to{transform:translate3d(5vw,-6vh,0) scale(1.2)}}.grid-overlay{position:absolute;inset:0;opacity:.4;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:54px 54px;-webkit-mask-image:radial-gradient(circle at 50% 30%,#000,transparent 75%);mask-image:radial-gradient(circle at 50% 30%,#000,transparent 75%)}.cursor-light{position:absolute;inset:0;opacity:.6;transition:background .2s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,30%),rgba(59,130,246,.10),transparent 70%)}.noise{position:absolute;inset:0;opacity:.035;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}.cursor-dot{position:fixed;top:0;left:0;width:9px;height:9px;border-radius:50%;background:var(--accent-2);pointer-events:none;z-index:4000;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s,opacity .2s;opacity:0;mix-blend-mode:screen;box-shadow:0 0 18px var(--accent-glow)}.cursor-dot.active{width:46px;height:46px;background:rgba(96,165,250,.18);box-shadow:0 0 0 1px var(--accent-2) inset}body.has-cursor{cursor:none}body.has-cursor a,body.has-cursor button{cursor:none}.eyebrow{font-family:var(--font-m);font-size:.72rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--slate);display:inline-flex;align-items:center;gap:10px;margin-bottom:20px}.sq{width:7px;height:7px;background:var(--accent);box-shadow:0 0 12px var(--accent-glow);flex:none}.pulse-dot{width:8px;height:8px;border-radius:50%;background:#34d399;flex:none;box-shadow:0 0 0 0 rgba(52,211,153,.6);animation:pulse 2.2s infinite}@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}.section-title{font-family:var(--font-d);font-weight:600;color:var(--white);line-height:1.05;letter-spacing:-.02em;font-size:clamp(1.9rem,4.4vw,3.2rem)}.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--font-d);font-weight:500;font-size:1rem;letter-spacing:.01em;padding:14px 28px;border-radius:var(--radius-sm);transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .25s,border-color .25s;will-change:transform}.btn-primary{background:var(--accent);color:#fff;box-shadow:0 8px 30px -10px var(--accent-glow)}.btn-primary:hover{background:var(--accent-d);box-shadow:0 16px 44px -12px var(--accent-glow),0 0 0 1px rgba(255,255,255,.08) inset}.btn-ghost{color:var(--white);border:1px solid var(--line-2);background:var(--glass);backdrop-filter:blur(8px)}.btn-ghost:hover{border-color:var(--accent);background:rgba(59,130,246,.1)}.btn-block{width:100%}.glass{background:var(--glass);border:1px solid var(--line);border-radius:var(--radius);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 30px 60px -40px rgba(0,0,0,.9)}.nav{position:fixed;inset:0 0 auto 0;z-index:1000;transition:background .4s,backdrop-filter .4s,border-color .4s;border-bottom:1px solid transparent}.nav.scrolled{background:rgba(5,8,22,.7);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);border-bottom-color:var(--line)}.nav-inner{display:flex;align-items:center;justify-content:space-between;min-height:74px}.brand{display:inline-flex;align-items:center;gap:11px}.brand-logo{width:34px;height:34px;border-radius:9px;object-fit:cover}.brand-name{font-family:var(--font-d);font-weight:600;font-size:1.25rem;color:var(--white);letter-spacing:-.01em}.dot-accent{color:var(--accent)}.nav-links{display:flex;align-items:center;gap:clamp(14px,2vw,30px)}.nav-links>a{font-size:.92rem;color:var(--slate);position:relative;padding:6px 0;transition:color .2s}.nav-links>a:not(.nav-cta)::after{content:"";position:absolute;left:0;bottom:-1px;height:1.5px;width:0;background:var(--accent);transition:width .25s var(--ease)}.nav-links>a:not(.nav-cta):hover{color:var(--white)}.nav-links>a:not(.nav-cta):hover::after{width:100%}.nav-cta{background:var(--accent);color:#fff!important;padding:10px 20px!important;border-radius:9px;font-family:var(--font-d);transition:background .2s,transform .2s,box-shadow .2s}.nav-cta:hover{background:var(--accent-d);box-shadow:0 8px 24px -8px var(--accent-glow)}.burger{display:none;width:42px;height:42px;position:relative}.burger span{position:absolute;left:11px;width:20px;height:2px;background:var(--white);border-radius:2px;transition:.25s var(--ease)}.burger span:nth-child(1){top:17px}.burger span:nth-child(2){top:24px}.burger.open span:nth-child(1){top:20px;transform:rotate(45deg)}.burger.open span:nth-child(2){top:20px;transform:rotate(-45deg)}.rail{position:fixed;left:22px;top:50%;transform:translateY(-50%);z-index:900;display:flex;flex-direction:column;align-items:flex-start;gap:18px}.rail-status{font-family:var(--font-m);font-size:.6rem;letter-spacing:.18em;color:var(--slate);display:flex;align-items:center;gap:7px;writing-mode:vertical-rl;transform:rotate(180deg);padding:2px 0}.rail-status .pulse-dot{width:6px;height:6px}.rail-dots{display:flex;flex-direction:column;gap:14px}.rail-dots a{display:flex;align-items:center;gap:10px;color:var(--muted)}.rail-dots a>span{width:8px;height:8px;border-radius:50%;border:1px solid var(--muted);transition:.25s;flex:none}.rail-dots a>b{font-family:var(--font-m);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;opacity:0;transform:translateX(-4px);transition:.25s;font-weight:500}.rail-dots a:hover>b{opacity:1;transform:none;color:var(--slate)}.rail-dots a.active>span{background:var(--accent);border-color:var(--accent);box-shadow:0 0 12px var(--accent-glow)}.rail-dots a.active>b{opacity:1;transform:none;color:var(--white)}.rail-social{display:flex;flex-direction:column;gap:12px;padding-top:6px;border-top:1px solid var(--line);margin-top:4px}.rail-social a{color:var(--muted);transition:color .2s,transform .2s}.rail-social a:hover{color:var(--accent-2);transform:translateY(-2px)}.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:120px;padding-bottom:0}.hero-inner{flex:1;display:flex;flex-direction:column;justify-content:center}.hero-name{font-family:var(--font-d);font-weight:700;color:var(--white);line-height:.95;letter-spacing:-.03em;font-size:clamp(2.8rem,9vw,6.6rem);margin-bottom:14px}.hero-role{font-family:var(--font-d);font-size:clamp(1.3rem,3.6vw,2.4rem);font-weight:500;color:var(--white);margin-bottom:24px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}.role-prefix{color:var(--slate);font-size:.6em;font-family:var(--font-b)}.scramble{color:var(--accent-2);font-family:var(--font-d);min-width:1ch}.hero-tag{max-width:560px;font-size:clamp(1rem,1.6vw,1.18rem);color:var(--slate);margin-bottom:36px}.hero-actions{display:flex;flex-wrap:wrap;gap:14px}.trust{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.012);backdrop-filter:blur(6px)}.trust-inner{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;padding-block:18px;font-family:var(--font-m);font-size:.74rem;letter-spacing:.04em;color:var(--slate);text-transform:uppercase}.trust-inner b{color:var(--white)}.trust .sep{width:5px;height:5px;border-radius:50%;background:var(--accent);flex:none}.scroll-cue{position:absolute;left:50%;bottom:104px;transform:translateX(-50%);width:24px;height:38px;border:1.5px solid var(--line-2);border-radius:13px;display:grid;place-items:start center;padding-top:7px;z-index:3}.scroll-cue span{width:3px;height:7px;border-radius:3px;background:var(--accent-2);animation:cue 1.6s infinite var(--ease)}@keyframes cue{0%{opacity:0;transform:translateY(0)}40%{opacity:1}80%,100%{opacity:0;transform:translateY(13px)}}.about-copy .btn{margin-top:8px}.footer-cta .btn{width:max-content}.wa-float{position:fixed;right:20px;bottom:22px;z-index:950;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:#25D366;color:#fff;box-shadow:0 12px 30px -8px rgba(37,211,102,.6);animation:waPulse 2.6s infinite;transition:transform .2s}.wa-float:hover{transform:scale(1.08)}@keyframes waPulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.5),0 12px 30px -8px rgba(37,211,102,.6)}70%{box-shadow:0 0 0 16px rgba(37,211,102,0),0 12px 30px -8px rgba(37,211,102,.6)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0),0 12px 30px -8px rgba(37,211,102,.6)}}.to-top{position:fixed;right:20px;bottom:88px;z-index:950;width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:var(--glass);border:1px solid var(--line-2);color:var(--white);backdrop-filter:blur(10px);opacity:0;transform:scale(.7);pointer-events:none;transition:opacity .4s var(--ease),transform .4s var(--ease),background .2s,border-color .2s}.to-top.show{opacity:1;transform:scale(1);pointer-events:auto}.to-top:hover{background:var(--accent);border-color:var(--accent);transform:scale(1.06) translateY(-2px)}html.js [data-reveal]{opacity:0;transform:translateY(30px);transition:opacity .7s var(--ease),transform .7s var(--ease);will-change:opacity,transform}html.js [data-reveal].in{opacity:1;transform:none}html.js .proj-grid [data-reveal],html.js .skill-grid [data-reveal],html.js .serv-grid [data-reveal]{transition-delay:var(--stagger,0ms)}html.js [data-load]{opacity:0;transform:translateY(24px)}html.js .hero-loaded [data-load]{animation:loadUp .8s var(--ease) forwards}html.js .hero-loaded [data-load]:nth-child(1){animation-delay:.1s}html.js .hero-loaded [data-load]:nth-child(2){animation-delay:.22s}html.js .hero-loaded [data-load]:nth-child(3){animation-delay:.34s}html.js .hero-loaded [data-load]:nth-child(4){animation-delay:.46s}html.js .hero-loaded [data-load]:nth-child(5){animation-delay:.58s}html.js .hero .trust[data-load]{animation-delay:.7s}@keyframes loadUp{to{opacity:1;transform:none}}html.js .nav{transform:translateY(-100%);transition:transform .6s var(--ease),background .4s,backdrop-filter .4s,border-color .4s}html.js .nav.nav-ready{transform:translateY(0)}@media(max-width:1180px){.rail{display:none}}@media(max-width:860px){.burger{display:block}.nav-links{position:fixed;inset:74px 0 auto 0;flex-direction:column;align-items:stretch;gap:0;padding:14px var(--gutter) 26px;background:rgba(5,8,22,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);transform:translateY(-10px);opacity:0;pointer-events:none;transition:opacity .25s var(--ease),transform .25s var(--ease);max-height:calc(100svh - 74px);overflow-y:auto}.nav-links.open{transform:none;opacity:1;pointer-events:auto}.nav-links>a{padding:15px 4px;border-bottom:1px solid var(--line);font-size:1.05rem}.nav-links>a::after{display:none}.nav-cta{text-align:center;margin-top:14px;padding:14px!important}.preview-toggle{display:inline-block}.screen-hint{display:none}}@media (max-width:860px),(hover:none) and (pointer:coarse){.blob{animation:none!important;will-change:auto;filter:blur(58px)}.b1{transform:translate3d(4vw,3vh,0) scale(1.08)}.b2{transform:translate3d(-3vw,2vh,0) scale(1.05)}.b3{transform:translate3d(2vw,-3vh,0) scale(1.1)}.noise{display:none}.grid-overlay{opacity:.28}.cursor-light{display:none}html.js [data-load]{opacity:1!important;transform:none!important;animation:none!important}html.js .nav{transform:none!important}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}html.js [data-reveal],html.js [data-load]{opacity:1!important;transform:none!important}html.js .nav{transform:none!important}.blob,.marquee-track,.scroll-cue span,.wa-float,.pulse-dot{animation:none!important}.proj-card:nth-child(even){transform:none!important}.cursor-dot{display:none!important}body.has-cursor{cursor:auto}}</style>
   <link rel="preload" as="style" href="style.css" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link rel="stylesheet" href="style.css" /></noscript>
 
@@ -112,13 +83,14 @@
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Abdellah Teha",
-    "jobTitle": ["Web Designer", "Frontend Developer", "AI Automation Specialist"],
-    "description": "Building premium websites that grow businesses.",
+    "jobTitle": "Web Designer & Frontend Developer",
+    "description": "Freelance web designer and frontend developer in Dubai creating modern, responsive, and conversion-focused websites for businesses.",
     "image": "https://abdellahteha.com/abdellah-profile.webp",
     "url": "https://abdellahteha.com",
     "email": "mailto:abdellateha7@gmail.com",
+    "address": { "@type": "PostalAddress", "addressLocality": "Dubai", "addressCountry": "AE" },
     "sameAs": ["https://github.com/abdellahdubai1-source"],
-    "knowsAbout": ["Web Design", "Frontend Development", "UI/UX Design", "AI Automation", "Responsive Design"]
+    "knowsAbout": ["Web Design", "Frontend Development", "Responsive Design", "AI Automation"]
   }
   </script>
 
@@ -135,292 +107,170 @@
 </head>
 
 <body>
-  <a class="skip-link" href="#projects">Skip to content</a>
-
-  <!-- Aurora background -->
-  <div class="aurora" aria-hidden="true">
-    <span class="blob b1"></span>
-    <span class="blob b2"></span>
-    <span class="blob b3"></span>
-    <span class="grid-overlay"></span>
-    <span class="cursor-light"></span>
-    <span class="noise"></span>
-  </div>
-
-  <!-- Custom cursor (desktop, enhancement only) -->
-  <div class="cursor-dot" id="cursor" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- ============ NAV ============ -->
   <header class="nav" id="nav">
     <div class="container nav-inner">
-      <a href="#hero" class="brand" aria-label="Abdellah Teha — home">
-        <img src="at-logo.webp" alt="" class="brand-logo" width="34" height="34" decoding="async" />
-        <span class="brand-name">Abdellah<span class="dot-accent">.</span></span>
-      </a>
+      <a href="#home" class="brand">Abdellah Teha</a>
 
       <nav class="nav-links" id="nav-links" aria-label="Primary">
-        <a href="#projects">Work</a>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
+        <a href="#work">Work</a>
         <a href="#services">Services</a>
-        <a href="#why">Why Me</a>
-        <a href="#contact" class="nav-cta" data-magnetic>Let's Talk</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="https://wa.me/971581197208?text=Hello%20Abdellah%2C%20I%27m%20interested%20in%20discussing%20a%20website%20project."
+           class="btn btn-primary nav-cta" target="_blank" rel="noopener">Start a Project</a>
       </nav>
 
-      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
-        <span></span><span></span>
+      <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
       </button>
     </div>
   </header>
 
-  <!-- ============ STATUS RAIL (desktop) ============ -->
-  <aside class="rail" id="rail" aria-label="Section navigation">
-    <span class="rail-status"><span class="pulse-dot"></span>ONLINE</span>
-    <ul class="rail-dots">
-      <li><a href="#hero" data-rail="hero" aria-label="Hero"><span></span><b>Intro</b></a></li>
-      <li><a href="#projects" data-rail="projects" aria-label="Projects"><span></span><b>Work</b></a></li>
-      <li><a href="#about" data-rail="about" aria-label="About"><span></span><b>About</b></a></li>
-      <li><a href="#skills" data-rail="skills" aria-label="Skills"><span></span><b>Skills</b></a></li>
-      <li><a href="#services" data-rail="services" aria-label="Services"><span></span><b>Services</b></a></li>
-      <li><a href="#why" data-rail="why" aria-label="Why me"><span></span><b>Why</b></a></li>
-      <li><a href="#contact" data-rail="contact" aria-label="Contact"><span></span><b>Contact</b></a></li>
-    </ul>
-    <div class="rail-social">
-      <a href="https://github.com/abdellahdubai1-source" target="_blank" rel="noopener" aria-label="GitHub">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
-      </a>
-      <a href="https://wa.me/971581197208" target="_blank" rel="noopener" aria-label="WhatsApp">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/></svg>
-      </a>
-      <a href="mailto:abdellateha7@gmail.com" aria-label="Email">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-      </a>
-    </div>
-  </aside>
-
-  <main>
+  <main id="main">
 
     <!-- ============ HERO ============ -->
-    <section class="hero" id="hero">
+    <section class="hero" id="home">
       <div class="container hero-inner">
-        <p class="eyebrow" data-load><span class="pulse-dot"></span> AVAILABLE FOR WORK — ONLINE</p>
-        <h1 class="hero-name" data-load>Abdellah Teha</h1>
-        <p class="hero-role" data-load>
-          <span class="role-prefix">I'm a</span>
-          <span class="scramble" id="scramble" aria-live="polite">Web Designer</span>
-        </p>
-        <p class="hero-tag" data-load>Building premium websites that grow businesses — design, frontend, and AI automation under one roof.</p>
-        <div class="hero-actions" data-load>
-          <a href="#projects" class="btn btn-primary" data-magnetic>View Work</a>
-          <a href="#contact" class="btn btn-ghost" data-magnetic>Let's Talk</a>
+        <p class="eyebrow" data-reveal>Freelance Web Designer &amp; Developer · Dubai</p>
+        <h1 data-reveal>I design websites that help businesses look professional and grow.</h1>
+        <p class="hero-lead" data-reveal>I create fast, modern, and easy-to-use websites for businesses that want a stronger online presence and more customer inquiries.</p>
+        <div class="hero-actions" data-reveal>
+          <a href="#work" class="btn btn-primary">View My Work</a>
+          <a href="https://wa.me/971581197208?text=Hello%20Abdellah%2C%20I%27m%20interested%20in%20discussing%20a%20website%20project."
+             class="btn btn-secondary" target="_blank" rel="noopener">Chat on WhatsApp</a>
         </div>
+        <p class="hero-trust" data-reveal>Based in Dubai · Available Worldwide</p>
       </div>
-
-      <div class="trust" data-load>
-        <div class="container trust-inner">
-          <span><b>04</b> Live sites shipped</span>
-          <span class="sep"></span>
-          <span>Design · Frontend · AI</span>
-          <span class="sep"></span>
-          <span>Online · Available worldwide</span>
-        </div>
-      </div>
-
-      <a href="#projects" class="scroll-cue" aria-label="Scroll to work"><span></span></a>
     </section>
 
-    <!-- ============ FEATURED PROJECTS ============ -->
-    <section class="section projects" id="projects">
+    <!-- ============ SELECTED WORK ============ -->
+    <section class="section work" id="work">
       <div class="container">
         <header class="section-head" data-reveal>
-          <p class="eyebrow"><span class="sq"></span> Featured Work</p>
-          <h2 class="section-title">Live projects, running in real time.</h2>
-          <p class="section-intro">Hover a card on desktop, or tap "Preview live" on mobile, to watch the actual website run inside the frame.</p>
+          <p class="eyebrow">Selected Work</p>
+          <h2>A selection of websites built for real businesses.</h2>
+          <p class="section-lead">Clean, responsive websites designed to help businesses build trust and connect with more customers.</p>
         </header>
 
-        <div class="proj-filter" role="tablist" aria-label="Filter portfolio by category" data-reveal>
-          <button type="button" class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All</button>
-          <button type="button" class="filter-btn" data-filter="healthcare" role="tab" aria-selected="false">Healthcare</button>
-          <button type="button" class="filter-btn" data-filter="beauty" role="tab" aria-selected="false">Beauty</button>
-          <button type="button" class="filter-btn" data-filter="restaurant" role="tab" aria-selected="false">Restaurant</button>
-          <button type="button" class="filter-btn" data-filter="automotive" role="tab" aria-selected="false">Automotive</button>
-          <button type="button" class="filter-btn" data-filter="mobile-store" role="tab" aria-selected="false">Mobile Store</button>
-          <button type="button" class="filter-btn" data-filter="fitness" role="tab" aria-selected="false">Gym &amp; Fitness</button>
-        </div>
-
-        <div class="proj-grid" id="proj-grid">
-
-          <article class="proj-card" data-reveal data-tilt data-category="mobile-store">
-            <div class="browser">
-              <div class="browser-bar">
-                <span class="dots"><i></i><i></i><i></i></span>
-                <span class="url">abdellahdubai1-source.github.io/Smart-mobile</span>
-                <button class="preview-toggle" type="button" aria-pressed="false">Preview live</button>
-              </div>
-              <div class="screen" data-live="https://abdellahdubai1-source.github.io/Smart-mobile/" data-title="Smart Mobile AI live preview">
-                <img src="smartmobile.jpg" alt="Smart Mobile AI website — homepage design" class="shot" width="1200" height="750" loading="lazy" decoding="async" fetchpriority="low" />
-                <span class="screen-hint">Hover or tap to load live</span>
-              </div>
-            </div>
-            <div class="proj-meta">
-              <div class="proj-text">
+        <ol class="work-list">
+          <li class="work-item" data-reveal>
+            <span class="work-num">01</span>
+            <div class="work-body">
+              <div class="work-heading">
                 <h3>Smart Mobile AI</h3>
-                <p class="proj-role">AI Product Site · Design + Build</p>
+                <span class="work-cat">Mobile Store</span>
               </div>
-              <div class="chips"><span>HTML</span><span>CSS</span><span>JS</span><span>AI</span></div>
+              <p class="work-desc">A modern product website that makes browsing devices and requesting information simple.</p>
+              <p class="work-services">Website Design · Development · AI Assistant</p>
+              <a class="work-link" href="https://abdellahdubai1-source.github.io/Smart-mobile/" target="_blank" rel="noopener noreferrer">
+                View Live Project
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+              </a>
             </div>
-            <a class="proj-link" href="https://abdellahdubai1-source.github.io/Smart-mobile/" target="_blank" rel="noopener noreferrer" data-magnetic>
-              Live Demo <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
-            </a>
-          </article>
+          </li>
 
-          <article class="proj-card" data-reveal data-tilt data-category="beauty">
-            <div class="browser">
-              <div class="browser-bar">
-                <span class="dots"><i></i><i></i><i></i></span>
-                <span class="url">abdellahdubai1-source.github.io/Glow-Beauty-Salon</span>
-                <button class="preview-toggle" type="button" aria-pressed="false">Preview live</button>
-              </div>
-              <div class="screen" data-live="https://abdellahdubai1-source.github.io/Glow-Beauty-Salon/" data-title="Glow Beauty Salon live preview">
-                <div class="shot shot-placeholder" role="img" aria-label="Glow Beauty Salon website preview">
-                  <span class="ph-mark">GB</span>
-                </div>
-                <span class="screen-hint">Hover or tap to load live</span>
-              </div>
-            </div>
-            <div class="proj-meta">
-              <div class="proj-text">
-                <h3>Glow Beauty Salon</h3>
-                <p class="proj-role">Beauty Salon · Design + Build</p>
-              </div>
-              <div class="chips"><span>HTML</span><span>CSS</span><span>JS</span></div>
-            </div>
-            <a class="proj-link" href="https://abdellahdubai1-source.github.io/Glow-Beauty-Salon/" target="_blank" rel="noopener noreferrer" data-magnetic>
-              Live Demo <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
-            </a>
-          </article>
-
-          <article class="proj-card" data-reveal data-tilt data-category="restaurant">
-            <div class="browser">
-              <div class="browser-bar">
-                <span class="dots"><i></i><i></i><i></i></span>
-                <span class="url">abdellahdubai1-source.github.io/The-Olive-Table</span>
-                <button class="preview-toggle" type="button" aria-pressed="false">Preview live</button>
-              </div>
-              <div class="screen" data-live="https://abdellahdubai1-source.github.io/The-Olive-Table/" data-title="The Olive Table live preview">
-                <img src="theolivetable.jpg" alt="The Olive Table restaurant website — homepage design" class="shot" width="1200" height="750" loading="lazy" decoding="async" fetchpriority="low" />
-                <span class="screen-hint">Hover or tap to load live</span>
-              </div>
-            </div>
-            <div class="proj-meta">
-              <div class="proj-text">
+          <li class="work-item" data-reveal>
+            <span class="work-num">02</span>
+            <div class="work-body">
+              <div class="work-heading">
                 <h3>The Olive Table</h3>
-                <p class="proj-role">Restaurant · Design + Build</p>
+                <span class="work-cat">Restaurant</span>
               </div>
-              <div class="chips"><span>HTML</span><span>CSS</span><span>JS</span></div>
+              <p class="work-desc">An elegant restaurant website designed to showcase the atmosphere, menu, and reservations.</p>
+              <p class="work-services">Website Design · Development</p>
+              <a class="work-link" href="https://abdellahdubai1-source.github.io/The-Olive-Table/" target="_blank" rel="noopener noreferrer">
+                View Live Project
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+              </a>
             </div>
-            <a class="proj-link" href="https://abdellahdubai1-source.github.io/The-Olive-Table/" target="_blank" rel="noopener noreferrer" data-magnetic>
-              Live Demo <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
-            </a>
-          </article>
+          </li>
 
-          <article class="proj-card" data-reveal data-tilt data-category="automotive">
-            <div class="browser">
-              <div class="browser-bar">
-                <span class="dots"><i></i><i></i><i></i></span>
-                <span class="url">abdellahdubai1-source.github.io/Garage</span>
-                <button class="preview-toggle" type="button" aria-pressed="false">Preview live</button>
+          <li class="work-item" data-reveal>
+            <span class="work-num">03</span>
+            <div class="work-body">
+              <div class="work-heading">
+                <h3>Glow Beauty Salon</h3>
+                <span class="work-cat">Beauty &amp; Wellness</span>
               </div>
-              <div class="screen" data-live="https://abdellahdubai1-source.github.io/Garage/" data-title="Prime Auto Care Garage live preview">
-                <img src="garage.jpg" alt="Prime Auto Care Garage website — homepage design" class="shot" width="1200" height="750" loading="lazy" decoding="async" fetchpriority="low" />
-                <span class="screen-hint">Hover or tap to load live</span>
-              </div>
+              <p class="work-desc">A friendly salon website that helps customers explore services and book with confidence.</p>
+              <p class="work-services">Website Design · Development</p>
+              <a class="work-link" href="https://abdellahdubai1-source.github.io/Glow-Beauty-Salon/" target="_blank" rel="noopener noreferrer">
+                View Live Project
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+              </a>
             </div>
-            <div class="proj-meta">
-              <div class="proj-text">
-                <h3>Prime Auto Care</h3>
-                <p class="proj-role">Auto Garage · Design + Build</p>
-              </div>
-              <div class="chips"><span>HTML</span><span>CSS</span><span>JS</span></div>
-            </div>
-            <a class="proj-link" href="https://abdellahdubai1-source.github.io/Garage/" target="_blank" rel="noopener noreferrer" data-magnetic>
-              Live Demo <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
-            </a>
-          </article>
+          </li>
 
-          <article class="proj-card" data-reveal data-tilt data-category="healthcare">
-            <div class="browser">
-              <div class="browser-bar">
-                <span class="dots"><i></i><i></i><i></i></span>
-                <span class="url">abdellahdubai1-source.github.io/clinic</span>
-                <button class="preview-toggle" type="button" aria-pressed="false">Preview live</button>
-              </div>
-              <div class="screen" data-live="https://abdellahdubai1-source.github.io/clinic/" data-title="Elite Medical Clinic live preview">
-                <img src="eliteclinic.webp" alt="Elite Medical Clinic website — homepage design" class="shot" width="1200" height="750" loading="lazy" decoding="async" fetchpriority="low" />
-                <span class="screen-hint">Hover or tap to load live</span>
-              </div>
-            </div>
-            <div class="proj-meta">
-              <div class="proj-text">
-                <h3>Elite Medical Clinic</h3>
-                <p class="proj-role">Healthcare · Design + Build</p>
-              </div>
-              <div class="chips"><span>HTML</span><span>CSS</span><span>JS</span></div>
-            </div>
-            <a class="proj-link" href="https://abdellahdubai1-source.github.io/clinic/" target="_blank" rel="noopener noreferrer" data-magnetic>
-              Live Demo <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
-            </a>
-          </article>
-
-          <article class="proj-card" data-reveal data-tilt data-category="fitness">
-            <div class="browser">
-              <div class="browser-bar">
-                <span class="dots"><i></i><i></i><i></i></span>
-                <span class="url">abdellahdubai1-source.github.io/gym</span>
-                <button class="preview-toggle" type="button" aria-pressed="false">Preview live</button>
-              </div>
-              <div class="screen" data-live="https://abdellahdubai1-source.github.io/gym/" data-title="Iron Pulse Fitness live preview">
-                <img src="membership.png" alt="Iron Pulse Fitness website — homepage design" class="shot" width="1200" height="750" loading="lazy" decoding="async" fetchpriority="low" />
-                <span class="screen-hint">Hover or tap to load live</span>
-              </div>
-            </div>
-            <div class="proj-meta">
-              <div class="proj-text">
-                <h3>Iron Pulse Fitness</h3>
-                <p class="proj-role">Gym &amp; Fitness · Design + Build</p>
-              </div>
-              <div class="chips"><span>HTML</span><span>CSS</span><span>JS</span><span>Responsive</span></div>
-            </div>
-            <a class="proj-link" href="https://abdellahdubai1-source.github.io/gym/" target="_blank" rel="noopener noreferrer" data-magnetic>
-              View Live Demo <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
-            </a>
-          </article>
-
-          <article class="proj-card" data-reveal data-tilt data-category="healthcare">
-            <div class="browser">
-              <div class="browser-bar">
-                <span class="dots"><i></i><i></i><i></i></span>
-                <span class="url">abdellahdubai1-source.github.io/dental-clinic</span>
-                <button class="preview-toggle" type="button" aria-pressed="false">Preview live</button>
-              </div>
-              <div class="screen" data-live="https://abdellahdubai1-source.github.io/dental-clinic/" data-title="Bright Smile Dental Clinic live preview">
-                <img src="dental-clinic.png" alt="Bright Smile Dental Clinic website — homepage design" class="shot" width="1200" height="750" loading="lazy" decoding="async" fetchpriority="low" />
-                <span class="screen-hint">Hover or tap to load live</span>
-              </div>
-            </div>
-            <div class="proj-meta">
-              <div class="proj-text">
+          <li class="work-item" data-reveal>
+            <span class="work-num">04</span>
+            <div class="work-body">
+              <div class="work-heading">
                 <h3>Bright Smile Dental Clinic</h3>
-                <p class="proj-role">Healthcare Website · Dental Clinic Website</p>
+                <span class="work-cat">Healthcare</span>
               </div>
-              <div class="chips"><span>HTML</span><span>CSS</span><span>JS</span><span>Responsive</span></div>
+              <p class="work-desc">A trustworthy clinic website that makes services and appointment options easy to understand.</p>
+              <p class="work-services">Website Design · Development</p>
+              <a class="work-link" href="https://abdellahdubai1-source.github.io/dental-clinic/" target="_blank" rel="noopener noreferrer">
+                View Live Project
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+              </a>
             </div>
-            <p class="proj-desc">Premium dental clinic website with appointment booking, services, dentists, results gallery, testimonials, WhatsApp, and Google Maps.</p>
-            <a class="proj-link" href="https://abdellahdubai1-source.github.io/dental-clinic/" target="_blank" rel="noopener noreferrer" data-magnetic>
-              View Project <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
-            </a>
+          </li>
+
+          <li class="work-item" data-reveal>
+            <span class="work-num">05</span>
+            <div class="work-body">
+              <div class="work-heading">
+                <h3>Elite Medical Clinic</h3>
+                <span class="work-cat">Healthcare</span>
+              </div>
+              <p class="work-desc">A clean medical website created to communicate professionalism and patient confidence.</p>
+              <p class="work-services">Website Design · Development</p>
+              <a class="work-link" href="https://abdellahdubai1-source.github.io/clinic/" target="_blank" rel="noopener noreferrer">
+                View Live Project
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+              </a>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ SERVICES ============ -->
+    <section class="section services" id="services">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="eyebrow">Services</p>
+          <h2>Everything your business needs for a strong online presence.</h2>
+        </header>
+
+        <div class="services-grid">
+          <article class="service-item" data-reveal>
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8"/></svg>
+            </span>
+            <h3>Website Design</h3>
+            <p>Clean, premium website designs tailored to your brand, customers, and business goals.</p>
           </article>
 
+          <article class="service-item" data-reveal>
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6l-4 6 4 6M16 6l4 6-4 6"/></svg>
+            </span>
+            <h3>Website Development</h3>
+            <p>Fast, responsive websites that work beautifully across mobile, tablet, and desktop.</p>
+          </article>
+
+          <article class="service-item" data-reveal>
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="11" rx="2"/><path d="M12 8V5M9 13h.01M15 13h.01M2 12h3M19 12h3"/></svg>
+            </span>
+            <h3>AI &amp; Business Automation</h3>
+            <p>Practical chatbots and automation tools that help businesses respond faster and save time.</p>
+          </article>
         </div>
       </div>
     </section>
@@ -429,171 +279,31 @@
     <section class="section about" id="about">
       <div class="container about-grid">
         <div class="about-media" data-reveal>
-          <div class="portrait glass">
-            <img src="abdellah-profile.webp" alt="Portrait of Abdellah Teha, web designer and frontend developer" width="800" height="1000" loading="lazy" decoding="async" />
-          </div>
-          <div class="facts glass">
-            <p><span>Location</span><b>Online · Worldwide</b></p>
-            <p><span>Focus</span><b>Conversion-driven sites</b></p>
-            <p><span>Stack</span><b>Frontend + AI automation</b></p>
-          </div>
+          <img src="abdellah-profile.webp" alt="Portrait of Abdellah Teha, freelance web designer and frontend developer based in Dubai" width="800" height="1000" loading="lazy" decoding="async" />
         </div>
         <div class="about-copy" data-reveal>
-          <p class="eyebrow"><span class="sq"></span> About</p>
-          <h2 class="section-title">Design, code, and automation — from one person.</h2>
-          <p class="lead">I build premium websites that don't just look the part, they perform. Every project is designed for clarity, speed, and conversion, then hand-coded so it loads fast and behaves exactly as intended.</p>
-          <p>Most freelancers do one thing. I cover the full path: brand-aware UI design, clean frontend development, and AI automation that removes busywork for the businesses I work with. That means fewer hand-offs, tighter results, and a finished product that feels considered end to end.</p>
-          <p>If you want a site that earns its keep — fast, accessible, and built to grow with you — that's exactly what I do.</p>
-          <a href="#contact" class="btn btn-primary" data-magnetic>Start a project</a>
+          <p class="eyebrow">About Me</p>
+          <h2>A simple approach to building better business websites.</h2>
+          <p>I'm Abdellah, a freelance web designer and frontend developer based in Dubai. I help restaurants, clinics, salons, stores, and local businesses create a professional online presence.</p>
+          <p>My approach is straightforward: understand the business, remove unnecessary complexity, and build a website customers can trust and use easily.</p>
+          <ul class="about-points">
+            <li>Direct communication</li>
+            <li>Mobile-first design</li>
+            <li>On-time delivery</li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <!-- ============ SKILLS ============ -->
-    <section class="section skills" id="skills">
-      <div class="container">
-        <header class="section-head" data-reveal>
-          <p class="eyebrow"><span class="sq"></span> Capabilities</p>
-          <h2 class="section-title">A full toolkit, three disciplines.</h2>
-        </header>
-
-        <div class="skill-grid">
-          <div class="skill-card glass" data-reveal>
-            <span class="skill-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l7.5 7.5M14 10l7 7-4 4-7-7M14 10l3-3 4 4-3 3M3 3l4 0 0 4"/></svg></span>
-            <h3>Design</h3>
-            <p>Interfaces that feel premium and convert.</p>
-            <div class="chips"><span>UI / UX</span><span>Brand</span><span>Wireframing</span><span>Motion</span><span>Design systems</span></div>
-          </div>
-          <div class="skill-card glass" data-reveal>
-            <span class="skill-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9l-3 3 3 3M16 9l3 3-3 3M13 6l-2 12"/></svg></span>
-            <h3>Development</h3>
-            <p>Hand-coded, fast, responsive frontends.</p>
-            <div class="chips"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Responsive</span><span>Performance</span></div>
-          </div>
-          <div class="skill-card glass" data-reveal>
-            <span class="skill-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="11" rx="2"/><path d="M12 8V5M9 13h.01M15 13h.01M2 12h3M19 12h3"/></svg></span>
-            <h3>AI Automation</h3>
-            <p>Workflows and assistants that save hours.</p>
-            <div class="chips"><span>Chatbots</span><span>Workflows</span><span>Integrations</span><span>Prompting</span><span>APIs</span></div>
-          </div>
-        </div>
-
-        <div class="marquee" aria-hidden="true">
-          <div class="marquee-track">
-            <span>HTML</span><span>CSS</span><span>JavaScript</span><span>UI / UX</span><span>Figma</span><span>Responsive Design</span><span>Glassmorphism</span><span>Animation</span><span>SEO</span><span>Accessibility</span><span>AI Automation</span><span>Performance</span>
-            <span>HTML</span><span>CSS</span><span>JavaScript</span><span>UI / UX</span><span>Figma</span><span>Responsive Design</span><span>Glassmorphism</span><span>Animation</span><span>SEO</span><span>Accessibility</span><span>AI Automation</span><span>Performance</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ SERVICES ============ -->
-    <section class="section services" id="services">
-      <div class="container">
-        <header class="section-head" data-reveal>
-          <p class="eyebrow"><span class="sq"></span> Services</p>
-          <h2 class="section-title">What you get when we work together.</h2>
-        </header>
-
-        <div class="serv-grid">
-          <article class="serv-card glass" data-reveal>
-            <span class="serv-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8"/></svg></span>
-            <h3>Premium Website Design</h3>
-            <p>A distinctive, conversion-focused design tailored to your brand — not a recycled template.</p>
-          </article>
-          <article class="serv-card glass" data-reveal>
-            <span class="serv-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6l-4 6 4 6M16 6l4 6-4 6"/></svg></span>
-            <h3>Frontend Development</h3>
-            <p>Clean, hand-coded sites that load fast, work on every device, and stay easy to maintain.</p>
-          </article>
-          <article class="serv-card glass" data-reveal>
-            <span class="serv-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg></span>
-            <h3>AI Automation</h3>
-            <p>Chatbots, lead capture, and workflow automation that cut busywork and respond instantly.</p>
-          </article>
-          <article class="serv-card glass" data-reveal>
-            <span class="serv-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 5 5.6.8-4 3.9 1 5.6L12 14.6 6.9 17.3l1-5.6-4-3.9 5.6-.8z"/></svg></span>
-            <h3>Full Brand-to-Build</h3>
-            <p>End-to-end: identity, design, build, and launch — one person, one vision, zero hand-off gaps.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ WHY CHOOSE ME ============ -->
-    <section class="section why" id="why">
-      <div class="container why-grid">
-        <div class="why-head" data-reveal>
-          <p class="eyebrow"><span class="sq"></span> Why Choose Me</p>
-          <h2 class="section-title">Built for results, not just looks.</h2>
-          <p class="lead">A premium finish is the baseline. What sets the work apart is that it's fast, accessible, and aimed at the outcomes your business actually cares about.</p>
-
-          <div class="stats">
-            <div class="stat">
-              <span class="stat-num"><span class="counter" data-target="4">0</span>+</span>
-              <span class="stat-label">Live sites shipped</span>
-            </div>
-            <div class="stat">
-              <span class="stat-num"><span class="counter" data-target="100">0</span>%</span>
-              <span class="stat-label">Hand-coded</span>
-            </div>
-            <div class="stat">
-              <span class="stat-num">3<span class="stat-sub">-in-1</span></span>
-              <span class="stat-label">Design · Dev · AI</span>
-            </div>
-          </div>
-        </div>
-
-        <ol class="why-list" data-reveal>
-          <li><span class="n">01</span><div><h3>Conversion-focused</h3><p>Designed to turn visitors into customers, not just to look pretty.</p></div></li>
-          <li><span class="n">02</span><div><h3>Fast &amp; hand-coded</h3><p>No bloated builders — lean code that loads quickly and ranks well.</p></div></li>
-          <li><span class="n">03</span><div><h3>Direct communication</h3><p>You talk to the person doing the work. No middlemen, no guesswork.</p></div></li>
-          <li><span class="n">04</span><div><h3>Delivered on time</h3><p>Clear scope, clear timeline, and a finished site when promised.</p></div></li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- ============ CONTACT ============ -->
-    <section class="section contact" id="contact">
-      <div class="container">
-        <header class="section-head center" data-reveal>
-          <p class="eyebrow"><span class="sq"></span> Contact</p>
-          <h2 class="section-title">Have a project? Let's build something premium.</h2>
-          <p class="section-intro">The fastest way to reach me is WhatsApp. Prefer email or a brief? Use the form — I'll reply personally.</p>
-        </header>
-
-        <div class="contact-grid">
-          <div class="contact-tiles" data-reveal>
-            <a class="tile glass" href="https://wa.me/971581197208" target="_blank" rel="noopener" data-magnetic>
-              <span class="tile-ic wa" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20zm4.5-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7.2 7.2 0 0 1-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4a.4.4 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 5 5 0 0 0 1 2.6 11 11 0 0 0 4.3 3.8c1.6.6 1.7.5 2 .4a2.4 2.4 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.5-.3z"/></svg></span>
-              <div><span class="tile-k">WhatsApp</span><b>+971 58 119 7208</b></div>
-            </a>
-            <a class="tile glass" href="mailto:abdellateha7@gmail.com" data-magnetic>
-              <span class="tile-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
-              <div><span class="tile-k">Email</span><b>abdellateha7@gmail.com</b></div>
-            </a>
-            <a class="tile glass" href="https://github.com/abdellahdubai1-source" target="_blank" rel="noopener" data-magnetic>
-              <span class="tile-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg></span>
-              <div><span class="tile-k">GitHub</span><b>abdellahdubai1-source</b></div>
-            </a>
-          </div>
-
-          <form class="contact-form glass" id="contact-form" data-reveal novalidate>
-            <div class="field">
-              <label for="c-name">Name</label>
-              <input type="text" id="c-name" name="name" autocomplete="name" placeholder="Your name" required />
-            </div>
-            <div class="field">
-              <label for="c-email">Email</label>
-              <input type="email" id="c-email" name="email" autocomplete="email" placeholder="you@email.com" required />
-            </div>
-            <div class="field">
-              <label for="c-msg">Message</label>
-              <textarea id="c-msg" name="message" rows="4" placeholder="Tell me about your project" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block" data-magnetic>Send Message</button>
-            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
-          </form>
+    <!-- ============ CONTACT CTA ============ -->
+    <section class="section contact-cta" id="contact">
+      <div class="container contact-inner">
+        <h2 data-reveal>Have a project in mind?</h2>
+        <p data-reveal>Tell me about your business and what you want to build. I'll personally reply and help you choose the right next step.</p>
+        <div class="contact-actions" data-reveal>
+          <a href="https://wa.me/971581197208?text=Hello%20Abdellah%2C%20I%27m%20interested%20in%20discussing%20a%20website%20project."
+             class="btn btn-primary" target="_blank" rel="noopener">Start on WhatsApp</a>
+          <a href="mailto:abdellateha7@gmail.com" class="contact-email">abdellateha7@gmail.com</a>
         </div>
       </div>
     </section>
@@ -604,50 +314,31 @@
   <footer class="footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <a href="#hero" class="brand">
-          <img src="at-logo.webp" alt="" class="brand-logo" width="34" height="34" decoding="async" />
-          <span class="brand-name">Abdellah<span class="dot-accent">.</span></span>
-        </a>
-        <p>Building premium websites that grow businesses. Design, frontend, and AI automation — done right the first time.</p>
-        <div class="footer-social">
-          <a href="https://github.com/abdellahdubai1-source" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg></a>
-          <a href="https://wa.me/971581197208" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/></svg></a>
-          <a href="mailto:abdellateha7@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
-        </div>
+        <p class="footer-name">Abdellah Teha</p>
+        <p class="footer-tag">Web Designer &amp; Frontend Developer based in Dubai.</p>
       </div>
 
-      <nav class="footer-nav" aria-label="Footer">
-        <h4>Navigate</h4>
-        <a href="#projects">Work</a>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="#work">Work</a>
         <a href="#services">Services</a>
+        <a href="#about">About</a>
         <a href="#contact">Contact</a>
       </nav>
 
-      <div class="footer-cta">
-        <h4>Start something</h4>
-        <p>Available for freelance projects.</p>
-        <a href="https://wa.me/971581197208" target="_blank" rel="noopener" class="btn btn-primary" data-magnetic>Message on WhatsApp</a>
+      <div class="footer-contact">
+        <a href="https://wa.me/971581197208?text=Hello%20Abdellah%2C%20I%27m%20interested%20in%20discussing%20a%20website%20project." target="_blank" rel="noopener">WhatsApp</a>
+        <a href="mailto:abdellateha7@gmail.com">Email</a>
+        <a href="https://github.com/abdellahdubai1-source" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
-    <div class="footer-bar">
-      <div class="container footer-bar-inner">
-        <p>© <span id="year">2026</span> Abdellah Teha. All rights reserved.</p>
-        <p class="mono">Designed &amp; built by Abdellah Teha</p>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>&copy; <span id="year">2026</span> Abdellah Teha. All rights reserved.</p>
+        <p>Designed and built by Abdellah Teha.</p>
       </div>
     </div>
   </footer>
-
-  <!-- Floating WhatsApp -->
-  <a href="https://wa.me/971581197208" class="wa-float" aria-label="Chat on WhatsApp" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7L7 20.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.4.6.6-2.3-.2-.3A8 8 0 1 1 12 20zm4.5-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7.2 7.2 0 0 1-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4a.4.4 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 5 5 0 0 0 1 2.6 11 11 0 0 0 4.3 3.8c1.6.6 1.7.5 2 .4a2.4 2.4 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.5-.3z"/></svg>
-  </a>
-
-  <!-- Back to top -->
-  <button class="to-top" id="to-top" aria-label="Back to top">
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-  </button>
 
   <script src="script.js" defer></script>
 </body>
