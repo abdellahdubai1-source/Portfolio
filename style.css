@@ -249,9 +249,9 @@ p { color: var(--text-secondary); font-weight: 400; }
     margin-inline: auto;
   }
   .hero-title {
-    font-size: clamp(2.5rem, 10.5vw, 3rem);
-    line-height: 1.08;
-    letter-spacing: -0.035em;
+    font-size: clamp(2.5rem, 10.5vw, 2.75rem); /* ~40–44px */
+    line-height: 1.1;
+    letter-spacing: -0.03em;
     text-align: center;
     max-width: 100%;
     margin-inline: auto;
@@ -281,16 +281,22 @@ p { color: var(--text-secondary); font-weight: 400; }
   .section-head h2,
   .about-copy h2,
   .contact-cta h2 {
-    font-size: clamp(2.25rem, 9vw, 2.75rem);
-    line-height: 1.1;
+    font-size: clamp(2.25rem, 9vw, 2.5rem); /* ~36–40px */
+    line-height: 1.12;
     letter-spacing: -0.03em;
   }
   .section-lead { margin-inline: auto; }
 
-  /* --- About: center label + heading only; paragraphs stay left-aligned --- */
-  .about-copy .eyebrow,
-  .about-copy h2 { text-align: center; }
-  .about-copy h2 { margin-inline: auto; }
+  /* --- About: fully left-aligned text; image stays centered --- */
+  .about-copy { text-align: left; }
+  .about-copy p { font-size: 1.125rem; line-height: 1.65; } /* ~18px */
+
+  /* --- Contact card: compact, naturally sized --- */
+  .contact-inner { padding: 48px 0; } /* container supplies 24px horizontal gutter */
+  .contact-cta { margin-block: 8px 72px; } /* avoid doubled gap after the About section */
+  .contact-cta h2 { margin-bottom: 16px; }
+  .contact-cta p { margin-bottom: 24px; }
+  .contact-actions { gap: 20px; }
 
   /* --- Cards keep left-aligned content; titles at a comfortable size --- */
   .work-heading h3,
@@ -298,6 +304,9 @@ p { color: var(--text-secondary); font-weight: 400; }
   .section-lead,
   .work-desc,
   .service-item p { font-size: 1.0625rem; } /* ~17px body copy */
+
+  /* --- Labels ~13–15px on mobile --- */
+  .eyebrow { font-size: 0.85rem; }
 
   /* --- Video CTA font size on mobile --- */
   .btn-whatsapp { font-size: 16px; }
@@ -489,6 +498,8 @@ p { color: var(--text-secondary); font-weight: 400; }
 
 /* ============ CONTACT CTA ============ */
 .contact-cta {
+  /* The card's height comes from .contact-inner only — no doubled .section padding. */
+  padding-block: 0;
   background:
     radial-gradient(circle at 15% 15%, rgba(124, 108, 255, 0.14), transparent 40%),
     radial-gradient(circle at 85% 80%, rgba(39, 211, 226, 0.10), transparent 35%),
@@ -604,9 +615,14 @@ html.js [data-reveal].in { opacity: 1; transform: none; }
   .container { padding-inline: 24px; } /* consistent mobile gutter */
   .services-grid { grid-template-columns: 1fr; }
   .work-item { flex-direction: column; gap: 10px; padding: 28px 24px; } /* ~28–32px internal padding */
-  .contact-actions { flex-direction: column; align-items: stretch; }
-  .contact-actions .btn { width: 100%; }
-  .contact-cta { margin-inline: 14px; }
+  .contact-actions { flex-direction: column; align-items: center; }
+  .contact-actions .btn {
+    width: fit-content;   /* compact, centered — not stretched */
+    max-width: 100%;
+    padding: 14px 24px;
+    min-height: 52px;
+  }
+  .contact-cta { margin-inline: 20px; }
 }
 
 @media (max-width: 480px) {
