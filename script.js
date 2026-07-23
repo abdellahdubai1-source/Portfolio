@@ -29,6 +29,21 @@
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
   window.addEventListener('resize', () => { if (window.innerWidth > 860) closeMenu(); });
 
+  // Header: add blur + border once the page has scrolled.
+  // Passive listener + rAF throttle keeps this cheap on mobile.
+  const nav = $('#nav');
+  if (nav) {
+    let ticking = false;
+    const setNavState = () => {
+      nav.classList.toggle('scrolled', window.scrollY > 8);
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(setNavState); }
+    }, { passive: true });
+    setNavState();
+  }
+
   // Reveal on scroll
   const revealEls = $$('[data-reveal]');
   if (reduce || !('IntersectionObserver' in window)) {
