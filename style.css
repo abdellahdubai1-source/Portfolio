@@ -21,7 +21,7 @@
 
   --container: 1200px;
   --gutter: clamp(20px, 5vw, 40px);
-  --section-y: clamp(64px, 9vw, 120px);
+  --section-y: clamp(72px, 9vw, 112px); /* consistent 72px+ on mobile, no oversized gaps */
   --radius: 16px;
   --radius-sm: 10px;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -232,17 +232,45 @@ p { color: var(--text-secondary); font-weight: 400; }
   letter-spacing: 0.02em;
 }
 
+/* ============ MOBILE TYPOGRAPHY ============ */
 @media (max-width: 767px) {
-  .hero { padding: 56px 0 72px; }
-  .hero-title { font-size: clamp(2rem, 8.5vw, 2.6rem); max-width: 100%; }
-  .hero-actions { flex-direction: column; align-items: stretch; }
+  html { font-size: 17px; } /* body text ~17px; rem-based sizes scale with it */
+
+  .hero { padding: 48px 0 56px; } /* no oversized gap before the next section */
+  .hero-title {
+    font-size: clamp(2.5rem, 11vw, 2.82rem); /* ~42–48px */
+    line-height: 1.1;
+    max-width: 100%;
+  }
+  .hero-lead { margin-bottom: 26px; }
+  .hero-actions { flex-direction: column; align-items: stretch; margin-bottom: 18px; }
   .hero-actions .btn { width: 100%; }
+
+  /* Major section headings ~36–42px */
+  .section-head h2,
+  .about-copy h2,
+  .contact-cta h2 { font-size: clamp(2.12rem, 9vw, 2.47rem); line-height: 1.12; }
+
+  /* Card titles ~25px+ */
+  .work-heading h3,
+  .service-item h3 { font-size: 1.5rem; }
+
+  /* Body copy at a comfortable reading size */
+  .section-lead,
+  .work-desc,
+  .service-item p { font-size: 1rem; }
 }
 
 /* ============ INTRODUCTION VIDEO ============ */
+/* Simplified: label → video → CTA. The video itself carries the message. */
 .intro-video {
   background: var(--bg-alt);
   border-block: 1px solid var(--border);
+  padding-block: clamp(56px, 7vw, 96px); /* slightly tighter than standard sections */
+}
+.intro-label {
+  text-align: center;
+  margin-bottom: 28px; /* 24–32px gap between label and video */
 }
 .video-frame {
   max-width: 880px;
@@ -263,13 +291,15 @@ p { color: var(--text-secondary); font-weight: 400; }
 .video-cta {
   display: flex;
   justify-content: center;
-  margin-top: clamp(28px, 4vw, 40px);
+  margin-top: 28px; /* 24–30px between video and button */
 }
-.btn-whatsapp { padding: 15px 30px; }
-
-@media (max-width: 480px) {
-  .video-cta .btn-whatsapp { width: 100%; }
+.btn-whatsapp {
+  padding: 17px 28px;   /* ~16–18px vertical padding */
+  width: 100%;
+  max-width: 360px;     /* elegant, moderate size on every screen */
+  text-align: center;
 }
+.btn-whatsapp svg { flex: none; }
 
 /* ============ WORK GRID ============ */
 .work-list {
@@ -413,7 +443,7 @@ p { color: var(--text-secondary); font-weight: 400; }
   margin-block: var(--section-y);
 }
 .contact-cta .container { max-width: 700px; }
-.contact-inner { text-align: center; padding-block: clamp(56px, 9vw, 96px); }
+.contact-inner { text-align: center; padding-block: clamp(48px, 7vw, 84px); } /* natural height, no dead space */
 .contact-cta h2 {
   font-size: clamp(1.9rem, 4vw, 2.9rem);
   line-height: 1.15;
@@ -484,6 +514,7 @@ html.js [data-reveal].in { opacity: 1; transform: none; }
 }
 
 @media (max-width: 860px) {
+  :root { --header-h: 72px; } /* compact mobile header; menu + scroll offsets follow */
   .burger { display: block; }
   .nav-links {
     position: fixed;
@@ -514,10 +545,15 @@ html.js [data-reveal].in { opacity: 1; transform: none; }
 @media (max-width: 640px) {
   .container { padding-inline: 22px; }
   .services-grid { grid-template-columns: 1fr; }
-  .work-item { flex-direction: column; gap: 10px; }
+  .work-item { flex-direction: column; gap: 10px; padding: 22px 20px; } /* slightly tighter cards */
   .contact-actions { flex-direction: column; align-items: stretch; }
   .contact-actions .btn { width: 100%; }
   .contact-cta { margin-inline: 14px; }
+}
+
+@media (max-width: 480px) {
+  /* Title and category stack instead of crowding one line. */
+  .work-heading { flex-direction: column; align-items: flex-start; gap: 4px; }
 }
 
 /* ============ REDUCED MOTION ============ */
