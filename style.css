@@ -232,33 +232,75 @@ p { color: var(--text-secondary); font-weight: 400; }
   letter-spacing: 0.02em;
 }
 
-/* ============ MOBILE TYPOGRAPHY ============ */
-@media (max-width: 767px) {
-  html { font-size: 17px; } /* body text ~17px; rem-based sizes scale with it */
-
-  .hero { padding: 48px 0 56px; } /* no oversized gap before the next section */
-  .hero-title {
-    font-size: clamp(2.5rem, 11vw, 2.82rem); /* ~42–48px */
-    line-height: 1.1;
-    max-width: 100%;
+/* ============ MOBILE TYPOGRAPHY & CENTERED LAYOUT (≤768px) ============ */
+@media (max-width: 768px) {
+  /* --- Natural wrapping: never break words internally --- */
+  h1, h2, h3 {
+    word-break: normal;
+    overflow-wrap: normal;
+    hyphens: none;
+    text-wrap: balance;
   }
-  .hero-lead { margin-bottom: 26px; }
-  .hero-actions { flex-direction: column; align-items: stretch; margin-bottom: 18px; }
-  .hero-actions .btn { width: 100%; }
 
-  /* Major section headings ~36–42px */
+  /* --- Hero: fully centered --- */
+  .hero { padding: 48px 0 56px; }
+  .hero-content {
+    text-align: center;
+    margin-inline: auto;
+  }
+  .hero-title {
+    font-size: clamp(2.5rem, 10.5vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+    text-align: center;
+    max-width: 100%;
+    margin-inline: auto;
+  }
+  .hero-lead {
+    font-size: 1.125rem; /* ~18px */
+    line-height: 1.65;
+    margin-inline: auto;
+    margin-bottom: 26px;
+  }
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 18px;
+  }
+  .hero-actions .btn { width: 100%; max-width: 420px; }
+
+  /* --- Section introductions: centered with consistent rhythm --- */
+  .section-head {
+    text-align: center;
+    margin-inline: auto;
+    max-width: 620px;
+    margin-bottom: 44px; /* 40–48px before section content */
+  }
+  .section-head .eyebrow { margin-bottom: 16px; }  /* label → heading */
+  .section-head h2 { margin-bottom: 20px; }        /* heading → paragraph */
   .section-head h2,
   .about-copy h2,
-  .contact-cta h2 { font-size: clamp(2.12rem, 9vw, 2.47rem); line-height: 1.12; }
+  .contact-cta h2 {
+    font-size: clamp(2.25rem, 9vw, 2.75rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+  .section-lead { margin-inline: auto; }
 
-  /* Card titles ~25px+ */
+  /* --- About: center label + heading only; paragraphs stay left-aligned --- */
+  .about-copy .eyebrow,
+  .about-copy h2 { text-align: center; }
+  .about-copy h2 { margin-inline: auto; }
+
+  /* --- Cards keep left-aligned content; titles at a comfortable size --- */
   .work-heading h3,
-  .service-item h3 { font-size: 1.5rem; }
-
-  /* Body copy at a comfortable reading size */
+  .service-item h3 { font-size: 1.55rem; }
   .section-lead,
   .work-desc,
-  .service-item p { font-size: 1rem; }
+  .service-item p { font-size: 1.0625rem; } /* ~17px body copy */
+
+  /* --- Video CTA font size on mobile --- */
+  .btn-whatsapp { font-size: 16px; }
 }
 
 /* ============ INTRODUCTION VIDEO ============ */
@@ -291,15 +333,29 @@ p { color: var(--text-secondary); font-weight: 400; }
 .video-cta {
   display: flex;
   justify-content: center;
-  margin-top: 28px; /* 24–30px between video and button */
+  margin-top: 24px; /* comfortable gap between video and button */
 }
 .btn-whatsapp {
-  padding: 17px 28px;   /* ~16–18px vertical padding */
-  width: 100%;
-  max-width: 360px;     /* elegant, moderate size on every screen */
-  text-align: center;
+  /* Compact, centered CTA — never full-width. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: fit-content;
+  max-width: calc(100% - 48px);
+  min-height: 52px;
+  padding: 14px 24px;
+  font-weight: 600;
+  line-height: 1.2;
+  border-radius: 14px;
+  white-space: nowrap; /* keep icon + text on one line */
 }
 .btn-whatsapp svg { flex: none; }
+
+/* Only on very narrow screens, allow the label to wrap cleanly. */
+@media (max-width: 359px) {
+  .btn-whatsapp { white-space: normal; text-align: center; }
+}
 
 /* ============ WORK GRID ============ */
 .work-list {
@@ -465,6 +521,8 @@ p { color: var(--text-secondary); font-weight: 400; }
 .contact-email {
   font-weight: 600;
   color: var(--text);
+  overflow-wrap: break-word; /* long email never overflows narrow screens */
+  max-width: 100%;
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   padding-bottom: 2px;
   transition: color 0.2s, border-color 0.2s;
@@ -543,9 +601,9 @@ html.js [data-reveal].in { opacity: 1; transform: none; }
 }
 
 @media (max-width: 640px) {
-  .container { padding-inline: 22px; }
+  .container { padding-inline: 24px; } /* consistent mobile gutter */
   .services-grid { grid-template-columns: 1fr; }
-  .work-item { flex-direction: column; gap: 10px; padding: 22px 20px; } /* slightly tighter cards */
+  .work-item { flex-direction: column; gap: 10px; padding: 28px 24px; } /* ~28–32px internal padding */
   .contact-actions { flex-direction: column; align-items: stretch; }
   .contact-actions .btn { width: 100%; }
   .contact-cta { margin-inline: 14px; }
@@ -554,6 +612,10 @@ html.js [data-reveal].in { opacity: 1; transform: none; }
 @media (max-width: 480px) {
   /* Title and category stack instead of crowding one line. */
   .work-heading { flex-direction: column; align-items: flex-start; gap: 4px; }
+}
+
+@media (max-width: 380px) {
+  .container { padding-inline: 20px; } /* slightly tighter gutter on very small screens */
 }
 
 /* ============ REDUCED MOTION ============ */
