@@ -765,10 +765,12 @@ p { color: var(--text-secondary); font-weight: 400; }
 }
 
 /* ============ PRELOADER ============
-   Hidden by default — only shown when the early inline head script adds
-   .preload to <html> (fresh session, JS enabled, motion not reduced).
-   With JS disabled, .preload is never added, so this block never renders
-   and the site opens instantly with no delay. */
+   Functional, not just decorative: this is what stops visitors from ever
+   seeing unstyled/broken HTML. It is hidden by default and only shown
+   when the early inline head script adds .is-loading to <html> — which
+   happens synchronously, before first paint, on every load. With JS
+   disabled that class is never added, so this block stays display:none
+   and the (render-blocking) stylesheet alone keeps the page FOUC-free. */
 .preloader {
   display: none;
   position: fixed;
@@ -779,83 +781,69 @@ p { color: var(--text-secondary); font-weight: 400; }
   background: var(--bg);
   padding: var(--gutter);
 }
-html.preload .preloader { display: flex; }
+html.is-loading .preloader { display: flex; }
 
 /* Lock scroll only while the preloader is actually showing. */
-html.preload,
-html.preload body { overflow: hidden; height: 100%; }
+html.is-loading,
+html.is-loading body { overflow: hidden; height: 100%; }
 
-.preloader-window {
-  width: 100%;
-  max-width: 460px;
-  border-radius: 14px;
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  box-shadow: 0 40px 90px -40px rgba(212, 175, 55, 0.35), 0 0 0 1px rgba(0, 0, 0, 0.4);
-  overflow: hidden;
-  transition: opacity 0.42s var(--ease), transform 0.42s var(--ease);
+.preloader-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
 }
 /* Fade + slight scale out once the site is ready. */
-.preloader-exit .preloader-window { opacity: 0; transform: scale(0.96); }
+.preloader-exit .preloader-inner { opacity: 0; transform: scale(0.97); }
 .preloader-exit { pointer-events: none; }
 
-.preloader-bar {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 14px 16px;
-  background: rgba(255, 255, 255, 0.02);
-  border-bottom: 1px solid var(--border);
-}
-.preloader-bar span {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  background: rgba(212, 175, 55, 0.35);
-}
-.preloader-bar span:first-child { background: rgba(212, 175, 55, 0.55); }
-
-.preloader-lines {
-  padding: 22px 22px 26px;
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-  font-size: 0.92rem;
-  line-height: 1.9;
-  min-height: 132px;
-}
-.preloader-line {
-  display: flex;
-  gap: 10px;
+.preloader-brand {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.15rem, 2.4vw, 1.4rem);
+  letter-spacing: -0.01em;
   color: var(--text);
-  white-space: nowrap;
+}
+.preloader-brand span { color: var(--gold); }
+
+.preloader-track {
+  width: min(180px, 42vw);
+  height: 2px;
+  border-radius: 2px;
+  background: var(--border);
   overflow: hidden;
 }
-.preloader-prompt {
-  color: var(--gold);
-  font-weight: 700;
-  flex: none;
+.preloader-fill {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: var(--grad-gold);
+  border-radius: 2px;
+  transition: width 0.2s linear;
 }
-.preloader-typed { color: var(--text); }
-.preloader-cursor {
-  display: inline-block;
-  width: 8px;
-  height: 1.1em;
-  margin-left: 10px;
-  background: var(--gold);
-  vertical-align: -2px;
-  animation: preloader-blink 0.9s step-end infinite;
+
+.preloader-percent {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
 }
-@keyframes preloader-blink { 50% { opacity: 0; } }
 
 /* ============ PAGE CONTENT REVEAL ============
-   Fades/slides up only for visitors who are actually seeing the preloader
-   this session — everyone else (no-JS, reduced motion, repeat visit in the
-   same session) gets the page at full opacity immediately, no dependency
-   on any script finishing. */
+   #page-content is hidden purely via the html.is-loading gate below. Since
+   style.css itself loads render-blocking (see index.html/portfolio.html
+   <head>), this rule is already active at first paint — no separate
+   inline "critical CSS" copy is needed to avoid a flash. No-JS visitors
+   never get .is-loading, so they see the page immediately at full opacity. */
 #page-content {
   opacity: 1;
   transform: none;
-  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  transition: opacity 0.45s var(--ease), transform 0.45s var(--ease);
 }
-html.preload #page-content { opacity: 0; transform: translateY(18px); }
+html.is-loading #page-content { opacity: 0; transform: translateY(10px); }
 
 /* ============ FLOATING WHATSAPP BUTTON ============ */
 .whatsapp-float {
