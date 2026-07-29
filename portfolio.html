@@ -33,7 +33,24 @@
   <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
   <link rel="dns-prefetch" href="https://www.clarity.ms" />
 
-  <script>document.documentElement.classList.add('js');</script>
+  <!-- No-FOUC: flag JS before paint so reveal states apply cleanly.
+       Also decides — synchronously, before first paint — whether the
+       one-time coding preloader should run this session. If JavaScript
+       is disabled this block never runs, so the site simply opens
+       normally with no preloader and no hidden content. -->
+  <script>
+    (function () {
+      try {
+        document.documentElement.classList.add('js');
+        var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var seen = false;
+        try { seen = sessionStorage.getItem('atPreloaderSeen') === '1'; } catch (e) {}
+        if (!seen && !reducedMotion) {
+          document.documentElement.classList.add('preload');
+        }
+      } catch (e) { /* fail safe: no preload class added, page renders normally */ }
+    })();
+  </script>
 
   <!-- ============ PRIMARY SEO ============ -->
   <title>Portfolio | Abdellah Teha — Web Designer &amp; Frontend Developer in Dubai</title>
@@ -84,6 +101,99 @@
 </head>
 
 <body>
+  <!-- ============ PRELOADER ============
+       Hidden by default (html.preload .preloader { display:flex } in style.css).
+       If JS is disabled, html never receives the "preload" class, so this
+       block stays display:none and the site opens instantly and normally. -->
+  <div class="preloader" id="preloader" role="status" aria-live="polite" aria-label="Loading Abdellah Teha portfolio">
+    <div class="preloader-window">
+      <div class="preloader-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="preloader-lines" id="preloader-lines"></div>
+    </div>
+  </div>
+  <script>
+  (function () {
+    // Hard fail-safe FIRST, before anything else can throw — guarantees the
+    // preloader can never trap a visitor even if something below breaks.
+    var failSafe = setTimeout(reveal, 2600);
+
+    function reveal() {
+      try {
+        clearTimeout(failSafe);
+        document.documentElement.classList.remove('preload');
+        try { sessionStorage.setItem('atPreloaderSeen', '1'); } catch (e) {}
+        var pl = document.getElementById('preloader');
+        if (pl) pl.setAttribute('aria-hidden', 'true');
+      } catch (e) {}
+    }
+
+    try {
+      if (!document.documentElement.classList.contains('preload')) { clearTimeout(failSafe); return; }
+
+      var linesEl = document.getElementById('preloader-lines');
+      var pre = document.getElementById('preloader');
+      if (!linesEl || !pre) { reveal(); return; }
+
+      var lines = [
+        'Initializing portfolio...',
+        'Loading selected projects...',
+        'Preparing digital experiences...',
+        'Welcome to Abdellah Teha.'
+      ];
+
+      var built = lines.map(function (text) {
+        var p = document.createElement('p');
+        p.className = 'preloader-line';
+        var prompt = document.createElement('span');
+        prompt.className = 'preloader-prompt';
+        prompt.textContent = '>';
+        var typed = document.createElement('span');
+        typed.className = 'preloader-typed';
+        p.appendChild(prompt);
+        p.appendChild(typed);
+        linesEl.appendChild(p);
+        return { text: text, typed: typed };
+      });
+
+      var cursor = document.createElement('span');
+      cursor.className = 'preloader-cursor';
+      linesEl.appendChild(cursor);
+
+      var li = 0, ci = 0;
+      var CHARS_PER_TICK = 2;
+      var CHAR_DELAY = 18;
+      var LINE_GAP = 90;
+      var HOLD_BEFORE_EXIT = 200;
+      var EXIT_DURATION = 420;
+
+      function typeStep() {
+        if (li >= built.length) { finish(); return; }
+        var line = built[li];
+        if (ci <= line.text.length) {
+          line.typed.textContent = line.text.slice(0, ci);
+          ci += CHARS_PER_TICK;
+          setTimeout(typeStep, CHAR_DELAY);
+        } else {
+          li += 1; ci = 0;
+          setTimeout(typeStep, LINE_GAP);
+        }
+      }
+
+      function finish() {
+        setTimeout(function () {
+          pre.classList.add('preloader-exit');
+          setTimeout(reveal, EXIT_DURATION);
+        }, HOLD_BEFORE_EXIT);
+      }
+
+      typeStep();
+    } catch (e) {
+      reveal();
+    }
+  })();
+  </script>
+
+  <div id="page-content">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- ============ NAV ============ -->
@@ -96,7 +206,7 @@
         <a href="index.html#services">Services</a>
         <a href="index.html#about">About</a>
         <a href="index.html#contact">Contact</a>
-        <a href="https://wa.me/971581197208?text=Hello%20Abdellah%2C%20I%27m%20interested%20in%20discussing%20a%20website%20project."
+        <a href="https://wa.me/971567654647?text=Hello%20Abdellah%2C%20I%27m%20interested%20in%20discussing%20a%20website%20project."
            class="btn btn-primary nav-cta" target="_blank" rel="noopener noreferrer">Start a Project</a>
       </nav>
 
@@ -237,7 +347,7 @@
         <h2 data-reveal>Have a project in mind?</h2>
         <p data-reveal>Tell me what you need, and I&rsquo;ll help you choose the right next step.</p>
         <div class="contact-actions" data-reveal>
-          <a href="https://wa.me/971581197208?text=Hello%20Abdellah%2C%20I%27m%20interested%20in%20discussing%20a%20website%20project."
+          <a href="https://wa.me/971567654647?text=Hello%20Abdellah%2C%20I%27m%20interested%20in%20discussing%20a%20website%20project."
              class="btn btn-primary" target="_blank" rel="noopener noreferrer">Start on WhatsApp</a>
           <a href="mailto:abdellateha7@gmail.com" class="contact-email">abdellateha7@gmail.com</a>
         </div>
@@ -264,14 +374,14 @@
 
       <div class="footer-contact">
         <p class="footer-heading">Contact</p>
-        <a href="https://wa.me/971581197208?text=Hello%20Abdellah%2C%20I%27m%20interested%20in%20discussing%20a%20website%20project." target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a href="https://wa.me/971567654647?text=Hello%20Abdellah%2C%20I%27m%20interested%20in%20discussing%20a%20website%20project." target="_blank" rel="noopener noreferrer">WhatsApp</a>
         <a href="mailto:abdellateha7@gmail.com">Email</a>
       </div>
 
       <div class="footer-follow">
         <p class="footer-heading">Follow</p>
         <div class="footer-social">
-          <a href="https://wa.me/971581197208" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+          <a href="https://wa.me/971567654647" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2.05 22l5.27-1.38a9.87 9.87 0 0 0 4.72 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.65-1.03-5.14-2.9-7.01A9.83 9.83 0 0 0 12.04 2Z"/></svg>
           </a>
           <a href="#" aria-label="LinkedIn">
@@ -294,6 +404,16 @@
       </div>
     </div>
   </footer>
+  </div>
+
+  <!-- ============ FLOATING WHATSAPP BUTTON ============
+       Deliberately OUTSIDE #page-content: that wrapper's fade-up transition
+       briefly gives it a non-"none" transform, which would otherwise turn
+       it into a containing block and break this button's position:fixed. -->
+  <a href="https://wa.me/971567654647?text=Hello%20Abdellah%2C%20I%27m%20interested%20in%20discussing%20a%20website%20project."
+     class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2.05 22l5.27-1.38a9.87 9.87 0 0 0 4.72 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.65-1.03-5.14-2.9-7.01A9.83 9.83 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.12.82.83-3.05-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.23 8.24Zm4.52-6.16c-.25-.13-1.47-.72-1.7-.81-.22-.08-.39-.12-.55.13-.17.24-.64.8-.78.97-.15.16-.29.18-.54.06-.24-.13-1.04-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.24-.01-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.13-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.43h-.47c-.16 0-.43.06-.66.31-.22.24-.86.84-.86 2.05 0 1.21.88 2.38 1 2.55.13.16 1.74 2.66 4.2 3.73.59.25 1.05.4 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.29Z"/></svg>
+  </a>
 
   <script src="script.js" defer></script>
 </body>
