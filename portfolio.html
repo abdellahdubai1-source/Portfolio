@@ -33,23 +33,14 @@
   <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
   <link rel="dns-prefetch" href="https://www.clarity.ms" />
 
-  <!-- No-FOUC: flag JS before paint so reveal states apply cleanly.
-       Also decides — synchronously, before first paint — whether the
-       one-time coding preloader should run this session. If JavaScript
-       is disabled this block never runs, so the site simply opens
-       normally with no preloader and no hidden content. -->
+  <!-- No-FOUC: flag JS before first paint so the loading-state CSS below
+       applies cleanly. This runs synchronously (no defer/async) so it
+       always completes before the browser paints anything. If JavaScript
+       is disabled it never runs, so <html> never gets "is-loading" and
+       the page renders normally and immediately — the render-blocking
+       stylesheet further down is what keeps it FOUC-free either way. -->
   <script>
-    (function () {
-      try {
-        document.documentElement.classList.add('js');
-        var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        var seen = false;
-        try { seen = sessionStorage.getItem('atPreloaderSeen') === '1'; } catch (e) {}
-        if (!seen && !reducedMotion) {
-          document.documentElement.classList.add('preload');
-        }
-      } catch (e) { /* fail safe: no preload class added, page renders normally */ }
-    })();
+    try { document.documentElement.classList.add('js', 'is-loading'); } catch (e) {}
   </script>
 
   <!-- ============ PRIMARY SEO ============ -->
@@ -84,8 +75,13 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" /></noscript>
 
-  <link rel="preload" as="style" href="style.css" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="style.css" /></noscript>
+  <!-- Main stylesheet is intentionally render-blocking: the browser will not
+       paint the page until this is loaded, which is precisely what
+       eliminates the unstyled-HTML flash. (The previous preload+onload
+       "swap in later" trick was the actual cause of that flash — it let
+       the browser paint raw HTML before this CSS applied.) The preloader
+       below covers the brief remainder of load time for fonts/images/JS. -->
+  <link rel="stylesheet" href="style.css" />
 
   <!-- ============ JSON-LD : Breadcrumb ============ -->
   <script type="application/ld+json">
@@ -102,91 +98,96 @@
 
 <body>
   <!-- ============ PRELOADER ============
-       Hidden by default (html.preload .preloader { display:flex } in style.css).
-       If JS is disabled, html never receives the "preload" class, so this
-       block stays display:none and the site opens instantly and normally. -->
+       Functional anti-FOUC shell: hides the real page and shows a minimal
+       branded loader until CSS/fonts/images/JS are actually ready (or a
+       hard 2s fallback). Hidden by default; only shown while <html> has
+       "is-loading" (added synchronously above, before first paint). If JS
+       is disabled that class is never added, so this stays display:none
+       and the site opens instantly and normally. Runs on every load. -->
   <div class="preloader" id="preloader" role="status" aria-live="polite" aria-label="Loading Abdellah Teha portfolio">
-    <div class="preloader-window">
-      <div class="preloader-bar" aria-hidden="true"><span></span><span></span><span></span></div>
-      <div class="preloader-lines" id="preloader-lines"></div>
+    <div class="preloader-inner">
+      <p class="preloader-brand">Abdellah <span>Teha</span></p>
+      <div class="preloader-track"><span class="preloader-fill" id="preloader-fill"></span></div>
+      <p class="preloader-percent" id="preloader-percent">0%</p>
     </div>
   </div>
   <script>
   (function () {
     // Hard fail-safe FIRST, before anything else can throw — guarantees the
-    // preloader can never trap a visitor even if something below breaks.
-    var failSafe = setTimeout(reveal, 2600);
+    // preloader never shows for more than ~2s even if an asset never loads
+    // or something below throws.
+    var HARD_MAX_MS = 2000;
+    var MIN_MS = 550; // natural floor so it never feels like a flicker
+    var revealed = false;
+    var failSafe = setTimeout(reveal, HARD_MAX_MS);
+
+    var pre = document.getElementById('preloader');
+    var fillEl = document.getElementById('preloader-fill');
+    var pctEl = document.getElementById('preloader-percent');
+    var reduceMotion = false;
+    try { reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+
+    function setPct(p) {
+      try {
+        if (fillEl) fillEl.style.width = p + '%';
+        if (pctEl) pctEl.textContent = Math.round(p) + '%';
+      } catch (e) {}
+    }
 
     function reveal() {
+      if (revealed) return;
+      revealed = true;
       try {
         clearTimeout(failSafe);
-        document.documentElement.classList.remove('preload');
-        try { sessionStorage.setItem('atPreloaderSeen', '1'); } catch (e) {}
-        var pl = document.getElementById('preloader');
-        if (pl) pl.setAttribute('aria-hidden', 'true');
+        setPct(100);
+        document.documentElement.classList.remove('is-loading');
+        if (pre) {
+          pre.classList.add('preloader-exit');
+          setTimeout(function () {
+            try { if (pre && pre.parentNode) pre.parentNode.removeChild(pre); } catch (e) {}
+          }, 420); // remove from DOM once the fade-out finishes
+        }
       } catch (e) {}
     }
 
     try {
-      if (!document.documentElement.classList.contains('preload')) { clearTimeout(failSafe); return; }
+      if (!document.documentElement.classList.contains('is-loading')) { clearTimeout(failSafe); return; }
 
-      var linesEl = document.getElementById('preloader-lines');
-      var pre = document.getElementById('preloader');
-      if (!linesEl || !pre) { reveal(); return; }
+      var start = Date.now();
+      var realReady = false;
 
-      var lines = [
-        'Initializing portfolio...',
-        'Loading selected projects...',
-        'Preparing digital experiences...',
-        'Welcome to Abdellah Teha.'
-      ];
-
-      var built = lines.map(function (text) {
-        var p = document.createElement('p');
-        p.className = 'preloader-line';
-        var prompt = document.createElement('span');
-        prompt.className = 'preloader-prompt';
-        prompt.textContent = '>';
-        var typed = document.createElement('span');
-        typed.className = 'preloader-typed';
-        p.appendChild(prompt);
-        p.appendChild(typed);
-        linesEl.appendChild(p);
-        return { text: text, typed: typed };
-      });
-
-      var cursor = document.createElement('span');
-      cursor.className = 'preloader-cursor';
-      linesEl.appendChild(cursor);
-
-      var li = 0, ci = 0;
-      var CHARS_PER_TICK = 2;
-      var CHAR_DELAY = 18;
-      var LINE_GAP = 90;
-      var HOLD_BEFORE_EXIT = 200;
-      var EXIT_DURATION = 420;
-
-      function typeStep() {
-        if (li >= built.length) { finish(); return; }
-        var line = built[li];
-        if (ci <= line.text.length) {
-          line.typed.textContent = line.text.slice(0, ci);
-          ci += CHARS_PER_TICK;
-          setTimeout(typeStep, CHAR_DELAY);
-        } else {
-          li += 1; ci = 0;
-          setTimeout(typeStep, LINE_GAP);
-        }
+      function armReveal() {
+        if (realReady) return;
+        realReady = true;
+        var elapsed = Date.now() - start;
+        setTimeout(reveal, Math.max(0, MIN_MS - elapsed));
       }
 
-      function finish() {
-        setTimeout(function () {
-          pre.classList.add('preloader-exit');
-          setTimeout(reveal, EXIT_DURATION);
-        }, HOLD_BEFORE_EXIT);
-      }
+      var loadDone = document.readyState === 'complete';
+      var fontsDone = !(window.document && window.document.fonts && window.document.fonts.ready);
 
-      typeStep();
+      function maybeReady() { if (loadDone && fontsDone) armReveal(); }
+
+      if (!loadDone) {
+        window.addEventListener('load', function () { loadDone = true; maybeReady(); });
+      }
+      if (window.document && window.document.fonts && window.document.fonts.ready) {
+        window.document.fonts.ready.then(function () { fontsDone = true; maybeReady(); })
+          .catch(function () { fontsDone = true; maybeReady(); });
+      }
+      maybeReady();
+
+      if (reduceMotion) {
+        setPct(92); // static — skip the animated tick for reduced-motion users
+      } else {
+        (function tick() {
+          if (revealed) return;
+          var elapsed = Date.now() - start;
+          var target = realReady ? 100 : Math.min(92, (elapsed / MIN_MS) * 92);
+          setPct(target);
+          if (!revealed) requestAnimationFrame(tick);
+        })();
+      }
     } catch (e) {
       reveal();
     }
