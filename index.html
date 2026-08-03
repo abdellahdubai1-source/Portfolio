@@ -93,6 +93,10 @@
        below covers the brief remainder of load time for fonts/images/JS. -->
   <link rel="stylesheet" href="style.css" />
 
+  <!-- Additive stylesheet for the contact form + toast/confirm UI. Never
+       touches style.css, so the original design cannot be broken by it. -->
+  <link rel="stylesheet" href="assets/contact-and-ui.css" />
+
   <!-- ============ JSON-LD : Person ============ -->
   <script type="application/ld+json">
   {
@@ -542,6 +546,50 @@
              class="btn btn-primary" target="_blank" rel="noopener noreferrer">Start on WhatsApp</a>
           <a href="mailto:abdellateha7@gmail.com" class="contact-email">abdellateha7@gmail.com</a>
         </div>
+
+        <!-- ============ CONTACT FORM ============
+             Submits directly to Supabase (see assets/contact-form.js). Sits
+             alongside the existing WhatsApp/email options above — it does
+             not replace them. -->
+        <div class="contact-form-wrap" data-reveal>
+          <h3>Or send a message directly</h3>
+          <p class="contact-form-sub">Fill in the form below and I&rsquo;ll get back to you as soon as possible.</p>
+
+          <form id="contact-form" class="contact-form" novalidate>
+            <div class="form-field">
+              <label for="cf-name">Name</label>
+              <input type="text" id="cf-name" name="name" autocomplete="name" required maxlength="120" />
+            </div>
+            <div class="form-field">
+              <label for="cf-email">Email</label>
+              <input type="email" id="cf-email" name="email" autocomplete="email" required maxlength="180" />
+            </div>
+            <div class="form-field">
+              <label for="cf-phone">Phone (optional)</label>
+              <input type="tel" id="cf-phone" name="phone" autocomplete="tel" maxlength="40" />
+            </div>
+            <div class="form-field">
+              <label for="cf-subject">Subject (optional)</label>
+              <input type="text" id="cf-subject" name="subject" maxlength="160" />
+            </div>
+            <div class="form-field form-field--full">
+              <label for="cf-message">Message</label>
+              <textarea id="cf-message" name="message" required maxlength="4000" rows="5"></textarea>
+            </div>
+
+            <!-- Honeypot anti-spam field: hidden from real visitors via CSS,
+                 tabindex -1 keeps keyboard users from ever landing on it. -->
+            <div class="hp-field" aria-hidden="true">
+              <label for="cf-website">Leave this field empty</label>
+              <input type="text" id="cf-website" name="website" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="contact-form-actions">
+              <button type="submit" class="btn btn-primary">Send Message</button>
+              <p class="form-status" id="contact-form-status" role="status" aria-live="polite"></p>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
 
@@ -607,6 +655,17 @@
      class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
     <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2.05 22l5.27-1.38a9.87 9.87 0 0 0 4.72 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.65-1.03-5.14-2.9-7.01A9.83 9.83 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.12.82.83-3.05-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.23 8.24Zm4.52-6.16c-.25-.13-1.47-.72-1.7-.81-.22-.08-.39-.12-.55.13-.17.24-.64.8-.78.97-.15.16-.29.18-.54.06-.24-.13-1.04-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.24-.01-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.13-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.43h-.47c-.16 0-.43.06-.66.31-.22.24-.86.84-.86 2.05 0 1.21.88 2.38 1 2.55.13.16 1.74 2.66 4.2 3.73.59.25 1.05.4 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.29Z"/></svg>
   </a>
+
+  <!-- ============ SUPABASE (contact form + dynamic content) ============
+       Loaded with defer, in order, so window.sb exists by the time
+       DOMContentLoaded fires. Safe no-ops if not configured yet — see
+       assets/supabase-config.js. -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="assets/supabase-config.js" defer></script>
+  <script src="assets/supabase-client.js" defer></script>
+  <script src="assets/ui-helpers.js" defer></script>
+  <script src="assets/site-data.js" defer></script>
+  <script src="assets/contact-form.js" defer></script>
 
   <script src="script.js" defer></script>
 </body>

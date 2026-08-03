@@ -1,0 +1,213 @@
+/* ============================================================================
+   Contact form + shared UI components (toast notifications, confirm dialog)
+   Additive stylesheet — loaded AFTER style.css, reuses its CSS variables.
+   style.css itself is never modified, so the existing design cannot break.
+   ============================================================================ */
+
+/* ============ Contact form ============ */
+.contact-form-wrap {
+  margin-top: 48px;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: clamp(24px, 4vw, 40px);
+}
+
+.contact-form-wrap h3 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  margin-bottom: 8px;
+}
+
+.contact-form-wrap .contact-form-sub {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+}
+
+.contact-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.contact-form .form-field--full { grid-column: 1 / -1; }
+
+.contact-form label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  padding: 12px 14px;
+  transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--border-strong);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+}
+
+.contact-form textarea { resize: vertical; min-height: 130px; }
+
+/* Honeypot field — invisible to real users, present for bots */
+.contact-form .hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.contact-form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.contact-form-actions .btn.is-loading { opacity: 0.75; pointer-events: none; }
+
+.form-status {
+  font-size: 0.9rem;
+  min-height: 1.2em;
+}
+.form-status--success { color: #8FD19E; }
+.form-status--error { color: #E58A8A; }
+
+@media (max-width: 640px) {
+  .contact-form { grid-template-columns: 1fr; }
+}
+
+/* ============ Toast notifications ============ */
+.at-toast-host {
+  position: fixed;
+  z-index: 9999;
+  top: max(16px, env(safe-area-inset-top));
+  right: 16px;
+  left: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  .at-toast-host { left: auto; max-width: 360px; }
+}
+
+.at-toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #161616;
+  border: 1px solid var(--border-strong, rgba(212,175,55,0.4));
+  border-radius: var(--radius-sm, 10px);
+  color: var(--text, #fff);
+  font-family: var(--font-sans, sans-serif);
+  font-size: 0.9rem;
+  padding: 12px 14px;
+  max-width: 100%;
+  box-shadow: 0 16px 32px -16px rgba(0,0,0,0.6);
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  cursor: pointer;
+}
+.at-toast.in { opacity: 1; transform: translateY(0); }
+.at-toast.out { opacity: 0; transform: translateY(-8px); }
+.at-toast-icon { flex: none; font-weight: 700; }
+.at-toast--success { border-color: rgba(143, 209, 158, 0.5); }
+.at-toast--success .at-toast-icon { color: #8FD19E; }
+.at-toast--error { border-color: rgba(229, 138, 138, 0.5); }
+.at-toast--error .at-toast-icon { color: #E58A8A; }
+.at-toast--info .at-toast-icon { color: var(--gold, #D4AF37); }
+
+/* ============ Modal / confirm dialog (shared with admin dashboard) ============ */
+body.at-modal-open { overflow: hidden; }
+
+.at-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.at-modal-overlay.in { opacity: 1; }
+
+.at-modal {
+  width: 100%;
+  max-width: 440px;
+  background: var(--surface, #181818);
+  border: 1px solid var(--border-strong, rgba(212,175,55,0.4));
+  border-radius: var(--radius, 18px);
+  padding: 28px;
+  transform: translateY(12px) scale(0.98);
+  transition: transform 0.2s ease;
+}
+.at-modal-overlay.in .at-modal { transform: translateY(0) scale(1); }
+
+.at-modal h3 {
+  font-family: var(--font-heading, sans-serif);
+  margin-bottom: 12px;
+  font-size: 1.15rem;
+}
+.at-modal p {
+  color: var(--text-secondary, #b5b5b5);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.at-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.at-btn {
+  font-family: var(--font-sans, sans-serif);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+.at-btn:hover { transform: translateY(-1px); }
+.at-btn-ghost {
+  background: transparent;
+  border-color: var(--border-strong, rgba(212,175,55,0.4));
+  color: var(--text, #fff);
+}
+.at-btn-primary {
+  background: var(--grad-gold, linear-gradient(135deg, #E7C96A, #D4AF37));
+  color: #0B0B0B;
+}
+.at-btn-danger {
+  background: #C0453F;
+  color: #fff;
+}

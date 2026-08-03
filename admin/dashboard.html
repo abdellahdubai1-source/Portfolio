@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" class="admin-checking">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Admin Dashboard | Abdellah Teha</title>
+
+  <link rel="icon" type="image/webp" href="../at-logo.webp" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" />
+
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="../assets/contact-and-ui.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+  <!-- Shown only while auth-guard.js is verifying the session (html.admin-checking) -->
+  <div class="admin-checking-note">
+    <span class="spinner" aria-hidden="true"></span>
+    <span>Checking your session…</span>
+  </div>
+
+  <div class="admin-shell">
+    <div class="admin-sidebar-overlay" id="admin-sidebar-overlay"></div>
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="admin-sidebar" id="admin-sidebar">
+      <div class="admin-sidebar-brand">Abdellah <span>Teha</span></div>
+
+      <nav class="admin-nav" aria-label="Admin sections">
+        <a href="#overview" data-view="overview">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+          Overview
+        </a>
+        <a href="#messages" data-view="messages">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v12H8l-4 4V5Z"/></svg>
+          Messages
+          <span id="messages-nav-badge" class="badge badge-new" style="display:none;margin-left:auto;"></span>
+        </a>
+        <a href="#projects" data-view="projects">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8"/></svg>
+          Projects
+        </a>
+        <a href="#testimonials" data-view="testimonials">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 8h.01M7 8h.01M4 4h16v10H8l-4 4V4Z"/></svg>
+          Testimonials
+        </a>
+      </nav>
+
+      <div class="admin-sidebar-foot">
+        <p class="admin-user-email" id="admin-user-email">&nbsp;</p>
+        <button type="button" class="btn btn-ghost btn-block" id="admin-logout">Log Out</button>
+      </div>
+    </aside>
+
+    <!-- ============ MAIN ============ -->
+    <div class="admin-main">
+      <header class="admin-topbar">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <button type="button" class="admin-burger" id="admin-burger" aria-label="Open menu">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+          </button>
+          <h1 class="admin-topbar-title" id="admin-topbar-title">Overview</h1>
+        </div>
+        <a href="../index.html" class="btn btn-ghost" target="_blank" rel="noopener noreferrer" style="padding:8px 16px;font-size:0.85rem;">View Site</a>
+      </header>
+
+      <main class="admin-content">
+
+        <!-- ============ OVERVIEW ============ -->
+        <section class="admin-view" id="view-overview">
+          <div class="admin-section-head">
+            <div>
+              <h2>Overview</h2>
+              <p class="admin-section-sub">A quick snapshot of your site's content and inbox.</p>
+            </div>
+          </div>
+          <div class="stat-cards" id="overview-stats">
+            <div class="admin-loading"><span class="spinner" aria-hidden="true"></span> Loading stats…</div>
+          </div>
+        </section>
+
+        <!-- ============ MESSAGES ============ -->
+        <section class="admin-view" id="view-messages">
+          <div class="admin-section-head">
+            <div>
+              <h2>Contact Messages</h2>
+              <p class="admin-section-sub">Submissions from your website's contact form. New messages appear here automatically.</p>
+            </div>
+            <div class="admin-filters" id="messages-filters">
+              <button type="button" class="chip active" data-status="all">All</button>
+              <button type="button" class="chip" data-status="new">New</button>
+              <button type="button" class="chip" data-status="read">Read</button>
+              <button type="button" class="chip" data-status="replied">Replied</button>
+            </div>
+          </div>
+          <div class="msg-list" id="messages-list">
+            <div class="admin-loading"><span class="spinner" aria-hidden="true"></span> Loading messages…</div>
+          </div>
+        </section>
+
+        <!-- ============ PROJECTS ============ -->
+        <section class="admin-view" id="view-projects">
+          <div class="admin-section-head">
+            <div>
+              <h2>Portfolio Projects</h2>
+              <p class="admin-section-sub">Manage the projects shown on your homepage and full portfolio page.</p>
+            </div>
+            <button type="button" class="btn btn-primary" id="project-add-btn">+ Add Project</button>
+          </div>
+          <div class="admin-grid" id="projects-grid">
+            <div class="admin-loading"><span class="spinner" aria-hidden="true"></span> Loading projects…</div>
+          </div>
+        </section>
+
+        <!-- ============ TESTIMONIALS ============ -->
+        <section class="admin-view" id="view-testimonials">
+          <div class="admin-section-head">
+            <div>
+              <h2>Testimonials</h2>
+              <p class="admin-section-sub">Manage the client testimonials shown on your homepage.</p>
+            </div>
+            <button type="button" class="btn btn-primary" id="testimonial-add-btn">+ Add Testimonial</button>
+          </div>
+          <div class="admin-grid" id="testimonials-grid">
+            <div class="admin-loading"><span class="spinner" aria-hidden="true"></span> Loading testimonials…</div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="../assets/supabase-config.js" defer></script>
+  <script src="../assets/supabase-client.js" defer></script>
+  <script src="../assets/ui-helpers.js" defer></script>
+  <script src="js/auth-guard.js" defer></script>
+  <script src="js/app.js" defer></script>
+  <script src="js/overview.js" defer></script>
+  <script src="js/messages.js" defer></script>
+  <script src="js/projects.js" defer></script>
+  <script src="js/testimonials.js" defer></script>
+</body>
+</html>
